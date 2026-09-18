@@ -66,11 +66,13 @@
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
                     <li class="menu-item">
-                    <a href="index.html" class="menu-link">
+                    <a href="{{ route('admin.index')}}" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
                         <div data-i18n="Analytics">Dashboard</div>
                     </a>
                     </li>
+
+                    <div class="menu-inner-shadow"></div>
 
                     <!-- Layouts -->
                     <li class="menu-item">

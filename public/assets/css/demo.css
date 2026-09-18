@@ -13,6 +13,12 @@
   height: 38px;
 }
 
+
+aside#layout-menu {
+    border-right: 1px solid #d9dee3 !important; /* Warna garis abu-abu standar, bisa diubah */
+    box-shadow: none !important; /* Menghilangkan bayangan jika ingin murni garis */
+}
+
 .app-brand-text.demo {
   font-size: 1.75rem;
   letter-spacing: -0.5px;
