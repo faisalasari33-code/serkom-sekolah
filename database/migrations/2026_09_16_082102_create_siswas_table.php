@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('siswas', function (Blueprint $table) {
             $table->id();
+            $table->string('nisn', 10);
             $table->string('nama_siswa');
             $table->enum('jenis_kelamin', ['Laki-Laki', 'Perempuan']);
             $table->date('tanggal_masuk');

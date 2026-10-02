@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="{{ asset('assets/') }}" data-template="vertical-menu-template-free">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <title>@yield('title', 'Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro')</title>
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
+
+    <!-- Helpers -->
+    <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+    <script src="{{ asset('assets/js/config.js') }}"></script>
+</head>
+
+<body>
+    <!-- Layout Wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+        <div class="layout-container">
+            
+            <!-- ================= SIDEBAR ================= -->
+            <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+                <div class="app-brand demo" style="height: auto; flex-direction:column; text-align:center; padding:20px 10px">
+                    <a href="index.html" class="app-brand-link d-flex align-items-center">
+
+                    <span class="app-brand-logo demo me-2">
+                            @if(isset($profile->logo) && $profile->logo)
+                            <img src="{{ asset('storage/' . $profile->logo) }}" alt="Logo" class="rounded-circle shadow-sm" style="width: 45px; height: 45px; object-fit: contain;" />
+                            @else
+                            <img src="{{ asset('assets/img/avatars/8.png') }}" alt="Default Logo" class="rounded-circle shadow-sm" style="width: 45px; height: 45px; object-fit: cover;" />
+                            @endif
+                        </span>
+
+                        <!-- TEKS: Ukuran disamakan (misal pakai font-size dan line-height yang setara) -->
+                        <span class="app-brand-text demo menu-text fw-bolder ms-2" style="font-size: 15px; line-height: 1.2; text-transform: uppercase;">
+                            <span style="display: block;">SDN 6 NEGERI</span>
+                            <span style="display: block; font-size: 13px; font-weight: 500; text-transform: uppercase; color: #697a8d;">Mangunreja</span>
+                        </span>
+                    </a>
+                    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+                        <i class="bx bx-chevron-left bx-sm align-middle"></i>
+                    </a>
+                </div>
+
+                <div class="menu-inner-shadow"></div>
+
+                <ul class="menu-inner py-1">
+                    <!-- Dashboard -->
+                    <li class="menu-item">
+                        <a href="{{route('dashboard.index')}}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                            <div data-i18n="Analytics">Dashboard</div>
+                        </a>
+                    </li>
+
+                    @if (Auth::Check() && Auth::user()->role == 'admin')
+                    <li class="menu-item">
+                        <a href="{{ route('admin.index') }}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-user-pin"></i>
+                            <div data-i18n="Analytics">Data Pengelola</div>
+                        </a>
+                    </li>
+                    @endif
+
+                    <!-- Layouts -->
+                    <li class="menu-item">
+                        <a href="{{ route('siswa.index')}}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-user"></i>
+                            <div data-i18n="Layouts">Siswa</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{route('galeri.index')}}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-image"></i>
+                            <div data-i18n="Layouts">Galeri</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{route('berita.index')}}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-news"></i>
+                            <div data-i18n="Layouts">Berita</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{route('guru.index')}}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-user-pin"></i>
+                            <div data-i18n="Layouts">Guru</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{route('ekstrakulikuler.index')}}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-trophy"></i>
+                            <div data-i18n="Layouts">Ekstrakulikuler</div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{route('profile.index')}}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-building"></i>
+                            <div data-i18n="Layouts">Profile Sekolah</div>
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+            <!-- ================= /SIDEBAR ================= -->
+
+            <!-- Layout Page -->
+            <div class="layout-page">
+                
+                <!-- ================= NAVBAR ================= -->
+                <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+                    <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+                        <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                            <i class="bx bx-menu bx-sm"></i>
+                        </a>
+                    </div>
+
+                    <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+                        <!-- Search -->
+                        <div class="navbar-nav align-items-center">
+                            <div class="nav-item d-flex align-items-center">
+                                <i class="bx bx-search fs-4 lh-0"></i>
+                                <input type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search..." />
+                            </div>
+                        </div>
+                        <!-- /Search -->
+
+                        <ul class="navbar-nav flex-row align-items-center ms-auto">
+                            <!-- User -->
+                            <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                                <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                                    <div class="avatar avatar-online">
+                                        <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle" />
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <div class="d-flex">
+                                                <div class="flex-shrink-0 me-3">
+                                                    <div class="avatar avatar-online">
+                                                        <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle" />
+                                                    </div>
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                    <span class="fw-semibold d-block">John Doe</span>
+                                                    <small class="text-muted">Admin</small>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown-divider"></div>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="bx bx-user me-2"></i>
+                                            <span class="align-middle">My Profile</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown-divider"></div>
+                                    </li>
+                                    <li>
+                                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item text-danger" style="border: none; background: none; cursor: pointer;">
+                                                <i class="bx bx-power-off me-2"></i>
+                                                <span class="align-middle">Log Out</span>
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!--/ User -->
+                        </ul>
+                    </div>
+                </nav>
+                <!-- ================= /NAVBAR ================= -->
+
+                <!-- Content Wrapper -->
+                <div class="content-wrapper">
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        @yield('content')
+                    </div>
+                    
+                    <!-- Footer dipindahkan ke sini (berada di dalam layout-page dan content-wrapper) -->
+                    <footer class="content-footer footer bg-footer-theme">
+                        <div class="container-xxl">
+                            <div class="footer-container d-flex align-items-center justify-content-between py-4 flex-md-row flex-column">
+                                <div class="mb-2 mb-md-0">
+                                    &#169;
+                                    <script>
+                                        document.write(new Date().getFullYear());
+                                    </script>
+                                    , made with ❤️ by
+                                    <a href="https://themeselection.com" target="_blank" class="footer-link">ThemeSelection</a>
+                                </div>
+                                <div class="d-none d-lg-inline-block">
+                                    <a href="https://themeselection.com/item/category/admin-templates/" target="_blank" class="footer-link me-4">Admin Templates</a>
+                                    <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
+                                    <a href="https://themeselection.com/item/category/bootstrap-admin-templates/" target="_blank" class="footer-link me-4">Bootstrap Dashboard</a>
+                                    <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/" target="_blank" class="footer-link me-4">Documentation</a>
+                                    <a href="https://github.com/themeselection/sneat-bootstrap-html-admin-template-free/issues" target="_blank" class="footer-link">Support</a>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                    <!-- / Footer -->
+
+                    <div class="content-backdrop fade"></div>
+                </div>
+                <!-- /Content Wrapper -->
+
+            </div>
+            <!-- /Layout Page -->
+        </div>
+
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- /Layout Wrapper -->
+
+    <!-- ================= SCRIPTS ================= -->
+    <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+    <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
+    
+    <!-- Vendors JS -->
+    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+
+    <!-- Main JS -->
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+
+    <!-- Page JS -->
+    <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- ================= /SCRIPTS ================= -->
+</body>
+</html>

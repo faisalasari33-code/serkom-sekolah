@@ -11,22 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('beritas', function (Blueprint $table) {
-            $table->id();
+        Schema::create('berita', function (Blueprint $table) {
+            $table->uuid('id_berita')->primary();
             $table->string('judul');
             $table->text('isi');
             $table->date('tanggal');
             $table->string('foto')->nullable();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->timestamps();
+            $table->uuid('id_user');
+            $table->foreign('id_user')->references('id_user')->on('user')->onUpdate('cascade')->onDelete('restrict');
+           
         });
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migrations. 
      */
     public function down(): void
     {
-        Schema::dropIfExists('beritas');
+        Schema::dropIfExists('berita');
     }
 };
