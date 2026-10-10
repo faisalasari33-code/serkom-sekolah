@@ -42,9 +42,8 @@
 
     <!-- Detail Informasi Profil -->
     <div class="row">
-        <!-- Kolom Kiri: Foto Sekolah & Info Singkat -->
         <div class="col-xl-4 col-lg-5 col-md-5 mb-4">
-            <!-- Kartu Foto Sekolah -->
+            <!-- Foto Gedung Sekolah -->
             <div class="card mb-4">
                 <div class="card-header">
                     <h5 class="card-action-title mb-0"><i class="bx bx-image text-primary me-2"></i> Foto Sekolah</h5>
@@ -54,7 +53,7 @@
                         <img src="{{ asset('storage/' . $profile->foto) }}" alt="Foto Sekolah" class="img-fluid rounded w-100 shadow-sm" style="height: 180px; object-fit: cover;" />
                     @else
                         <div class="p-4 bg-light rounded text-muted">
-                            <small>Belum ada foto sekolah</small>
+                            <small>Belum ada foto gedung sekolah</small>
                         </div>
                     @endif
                 </div>
@@ -65,29 +64,48 @@
                 <div class="card-body">
                     <small class="text-muted uppercase fw-semibold d-block mb-3">INFORMASI UTAMA</small>
                     <ul class="list-unstyled mb-0">
+                        <!-- Kepala Sekolah + Foto -->
                         <li class="d-flex align-items-center mb-3">
-                            <i class="bx bx-user text-primary fs-4 me-2"></i>
+                            @if(isset($profile->foto_kepala_sekolah) && $profile->foto_kepala_sekolah)
+                                <img src="{{ asset('storage/' . $profile->foto_kepala_sekolah) }}" alt="Kepala Sekolah" class="rounded-circle me-3 shadow-sm" style="width: 45px; height: 45px; object-fit: cover;" />
+                            @else
+                                <div class="bg-label-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px;">
+                                    <i class="bx bx-user text-primary fs-4"></i>
+                                </div>
+                            @endif
                             <div>
                                 <span class="fw-semibold text-muted d-block" style="font-size: 11px;">KEPALA SEKOLAH</span>
                                 <span class="text-dark fw-medium">{{ $profile->kepala_sekolah ?? '-' }}</span>
                             </div>
                         </li>
+
+                        <!-- Tahun Berdiri -->
                         <li class="d-flex align-items-center mb-3">
-                            <i class="bx bx-calendar text-primary fs-4 me-2"></i>
+                            <div class="bg-label-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px;">
+                                <i class="bx bx-calendar text-primary fs-4"></i>
+                            </div>
                             <div>
                                 <span class="fw-semibold text-muted d-block" style="font-size: 11px;">TAHUN BERDIRI</span>
                                 <span class="text-dark fw-medium">{{ $profile->tahun_berdiri ?? '-' }}</span>
                             </div>
                         </li>
+
+                        <!-- Kontak -->
                         <li class="d-flex align-items-center mb-3">
-                            <i class="bx bx-phone text-primary fs-4 me-2"></i>
+                            <div class="bg-label-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px;">
+                                <i class="bx bx-phone text-primary fs-4"></i>
+                            </div>
                             <div>
                                 <span class="fw-semibold text-muted d-block" style="font-size: 11px;">KONTAK</span>
                                 <span class="text-dark fw-medium">{{ $profile->kontak ?? '-' }}</span>
                             </div>
                         </li>
+
+                        <!-- Alamat -->
                         <li class="d-flex align-items-center">
-                            <i class="bx bx-map text-primary fs-4 me-2"></i>
+                            <div class="bg-label-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px;">
+                                <i class="bx bx-map text-primary fs-4"></i>
+                            </div>
                             <div>
                                 <span class="fw-semibold text-muted d-block" style="font-size: 11px;">ALAMAT</span>
                                 <span class="text-dark fw-medium" style="word-break: break-word;">{{ $profile->alamat ?? '-' }}</span>

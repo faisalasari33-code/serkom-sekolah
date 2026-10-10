@@ -13,6 +13,7 @@ class profile_sekolah extends Model
     protected $fillable = [
         'nama_sekolah',
         'kepala_sekolah',
+        'foto_kepala_sekolah',
         'foto',
         'logo',
         'npsn',

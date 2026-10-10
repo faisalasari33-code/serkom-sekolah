@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('isi');
             $table->date('tanggal');
             $table->string('foto')->nullable();
+            $table->string('status')->default('publish');
             $table->uuid('id_user');
             $table->foreign('id_user')->references('id_user')->on('user')->onUpdate('cascade')->onDelete('restrict');
            

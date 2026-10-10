@@ -96,4 +96,5 @@ class EkstrakurikulerController extends Controller
 
         return redirect()->route('ekstrakulikuler.index')->with('success', 'Data ekstrakurikuler berhasil dihapus!');
     }
+
 }

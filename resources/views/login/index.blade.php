@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>Login - PUSPENDIK CBT Application</title>
+    <title>Login - {{ $profil->nama_sekolah ?? 'SDN 6 Mangunreja' }}</title>
     
     <!-- CSS Template Admin (Sneat/Bootstrap) -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
@@ -14,15 +14,19 @@
     <style>
         body {
             background-color: #f4f5fb;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-            overflow: hidden;
+            padding: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-family: "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            position: relative;
         }
 
+        /* Banner Atas dengan Gradasi Transparan ke Bawah */
         .login-top-bg {
-            background-color: #1b4d8e; 
-            height: 48vh; 
+            height: 250px; 
             width: 100%;
             position: absolute;
             top: 0;
@@ -31,27 +35,35 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 35px;
+            padding-top: 25px;
             color: #fff;
+            /* Gradasi dari transparan di atas ke warna biru di bawah (tidak terlalu tebal) */
+            background-image: 
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 0%, rgba(48, 85, 104, 0.55) 100%), 
+                url('{{ asset('assets/img/backgrounds/sd.jpeg') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
+        /* Container Card - Ubah max-width jika mau tambah lebar (misal: 600px atau 650px) */
         .login-container {
             position: relative;
             z-index: 2;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 100%;
+            max-width: 580px; /* <--- Pengaturan lebar card ke pinggir */
+            margin-top: 55px;
+            padding: 0 20px;
         }
 
+        /* Card Form */
         .login-card {
-            width: 100%;
-            max-width: 430px;
+            width: 100% !important;
+            height: auto !important;
             border-radius: 16px !important;
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12) !important;
             background: #ffffff;
             border: none;
-            margin-top: 70px; 
         }
 
         .logo-title {
@@ -59,21 +71,21 @@
             font-size: 22px;
             letter-spacing: 0.5px;
             margin-top: 8px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
         }
 
         .logo-subtitle {
-            font-size: 11px;
-            letter-spacing: 1.5px;
-            opacity: 0.9;
+            font-size: 11.5px;
+            letter-spacing: 1px;
+            opacity: 0.95;
             text-transform: uppercase;
             font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
 
-        /* Perbaikan tipografi form agar lebih bersih */
         .form-label {
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 11.5px;
+            font-weight: 700;
             letter-spacing: 0.5px;
             color: #566a7f;
             margin-bottom: 6px;
@@ -95,20 +107,20 @@
 
 <body>
 
-    <!-- Bagian Banner Biru di Atas -->
-    <div class="login-top-bg" style="background-image: linear-gradient(rgba(45, 90, 148, 0.312), rgba(54, 98, 142, 0.9)), url('{{ asset('assets/img/backgrounds/sd.jpeg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-         <div style="width: 65px; height: 65px; border-radius: 50% !important; overflow: hidden !important; display: flex; align-items: center; justify-content: center; border: 2.5px solid rgba(255,255,255,0.8); box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
-             <img src="{{ asset('assets/img/backgrounds/sd.jpeg') }}" alt="Logo Sekolah" style="width: 100%; height: 100%; object-fit: cover;">
+    <!-- Bagian Banner Gambar di Atas -->
+    <div class="login-top-bg">
+         <div style="width: 65px; height: 65px; border-radius: 50% !important; overflow: hidden !important; display: flex; align-items: center; justify-content: center; border: 2.5px solid rgba(255,255,255,0.9); box-shadow: 0 4px 10px rgba(0,0,0,0.3); background: #fff;">
+             <img src="{{ !empty($profil->logo) ? asset('storage/' . $profil->logo) : asset('assets/img/backgrounds/sd.jpeg') }}" alt="Logo Sekolah" style="width: 100%; height: 100%; object-fit: cover;">
          </div>
-        <div class="logo-title">SDN 6 Mangunreja</div>
-        <div class="logo-subtitle mt-1">SDN 6 Mangunreja Application</div>
+        <div class="logo-title">{{ $profil->nama_sekolah ?? 'SDN 6 Mangunreja' }}</div>
+        <div class="logo-subtitle mt-1">Aplikasi Portal Informasi Sekolah</div>
     </div>
 
     <!-- Bagian Card Kotak Putih di Tengah -->
-    <div class="container login-container">
+    <div class="login-container">
         <div class="card login-card">
             <div class="card-body px-5 py-4">
-                <h4 class="mb-1 text-center fw-bold text-dark mt-2" style="font-size: 24px;">Selamat Datang 👋</h4>
+                <h4 class="mb-1 text-center fw-bold text-dark" style="font-size: 22px;">Selamat Datang</h4>
                 <p class="mb-4 text-center text-muted" style="font-size: 13px;">Silahkan login menggunakan akun yang telah terdaftar.</p>
 
                 <!-- Notifikasi Error Validasi -->
@@ -123,14 +135,14 @@
                     @csrf
                     <div class="mb-3">
                         <label class="form-label">USERNAME / EMAIL</label>
-                        <input type="text" name="username" class="form-control" autocomplete="off" placeholder="Masukkan username...">
+                        <input type="text" name="username" class="form-control" autocomplete="off" placeholder="Masukkan username..." required autofocus>
                     </div>
 
                     <!-- Input Password dengan Toggle Mata -->
                     <div class="mb-3">
                         <label class="form-label">PASSWORD</label>
                         <div class="input-group input-group-merge form-password-toggle">
-                            <input type="password" name="password" class="form-control" autocomplete="new-password" placeholder="Masukkan password..." />
+                            <input type="password" name="password" class="form-control" autocomplete="new-password" placeholder="Masukkan password..." required />
                             <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                         </div>
                     </div>

@@ -12,7 +12,9 @@ class galeri extends Model
         'judul',
         'keterangan',
         'foto',
+        'video',
         'kategori',
+        'status',
         'tanggal',
     ];
 }

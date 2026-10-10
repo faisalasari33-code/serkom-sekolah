@@ -15,7 +15,6 @@
             </a>
         </div>
         <div class="card-body">
-            {{-- PENTING: Gunakan enctype="multipart/form-data" karena ada upload file foto --}}
             <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 

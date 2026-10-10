@@ -36,18 +36,14 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label d-block">Foto Saat Ini</label>
+                    <label class="form-label d-block">Foto Berita Saat Ini</label>
                     @if($berita->foto)
-                        <img src="{{ asset('storage/' . $berita->foto) }}" alt="Foto Berita" width="120" class="rounded mb-2 shadow-sm">
+                        <img src="{{ asset('storage/' . $berita->foto) }}" alt="Foto Berita" class="img-thumbnail mb-2" style="max-height: 150px;">
                     @else
-                        <p class="text-muted small">Tidak ada foto yang diunggah sebelumnya.</p>
+                        <p class="text-muted small">Tidak ada foto.</p>
                     @endif
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label" for="foto">Ganti Foto (Opsional)</label>
                     <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto">
-                    <div class="form-text">Biarkan kosong jika tidak ingin mengubah foto.</div>
+                    <div class="form-text">Biarkan kosong jika tidak ingin mengganti foto. Format: JPG, PNG, JPEG (Max 2MB).</div>
                     @error('foto')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

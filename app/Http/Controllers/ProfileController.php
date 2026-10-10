@@ -29,6 +29,7 @@ class ProfileController extends Controller
         $request->validate([
             'nama_sekolah'  => 'required|string|max:255',
             'kepala_sekolah'=> 'required|string|max:255',
+            'foto_kepala_sekolah'=> 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'foto'=> 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'npsn' => 'required|max:10',
@@ -63,6 +64,13 @@ class ProfileController extends Controller
                 Storage::delete('public/' . $profile->logo);
             }
             $data['logo'] = $request->file('logo')->store('profile', 'public');
+        }
+
+        if ($request->hasFile('foto_kepala_sekolah')) {
+            if ($profile && $profile->foto_kepala_sekolah) {
+                Storage::delete('public/' . $profile->foto_kepala_sekolah);
+            }
+            $data['foto_kepala_sekolah'] = $request->file('foto_kepala_sekolah')->store('profile', 'public');
         }
 
         if (!$profile) {

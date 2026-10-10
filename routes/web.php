@@ -9,16 +9,34 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\GuruController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\EkstrakurikulerController;
 
-Route::get('login', [AuthController::class, 'login'])->name('login.index')->name('login');
-Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+// ==========================================
+// ROUTE PUBLIK / LANDING PAGE (TANPA AUTH)
+// ==========================================
+Route::get('/', [LandingController::class, 'index'])->name('home');
+Route::get('/berita-sekolah', [LandingController::class, 'beritaIndex'])->name('landing.berita');
+Route::get('/galeri-sekolah', [LandingController::class, 'galeriIndex'])->name('landing.galeri');
+Route::get('/eskul-sekolah', [LandingController::class, 'eskulIndex'])->name('landing.eskul');
+Route::get('/guru-staf', [LandingController::class, 'guruIndex'])->name('landing.guru');
+Route::get('/profil-sekolah', [LandingController::class, 'profilIndex'])->name('landing.profil');
 
+Route::get('/berita-sekolah/{id}', [LandingController::class, 'beritaDetail'])->name('landing.berita.detail');
+Route::get('/guru-staf/{id}', [LandingController::class, 'guruDetail'])->name('landing.guru.detail');
+Route::get('/eskul-sekolah/{id}', [LandingController::class, 'eskulDetail'])->name('landing.eskul.detail');
+Route::get('/galeri-sekolah', [LandingController::class, 'galeriDetail'])->name('landing.galeri');
+Route::get('/galeri-sekolah/{id}', [LandingController::class, 'galeriDetail'])->name('landing.galeri.detail');
+
+// AUTHENTICATION
+Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('auth', [AuthController::class, 'auth'])->name('auth');
 
-
+// ==========================================
+// ROUTE ADMIN / DASHBOARD (MEMAKAI CHECKAUTH)
+// ==========================================
 Route::middleware('checkauth')->group(function() {
-
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
     Route::post('/admin/store', [AdminController::class, 'store'])->name('admin.store');
     Route::put('/admin/{id}', [AdminController::class, 'update'])->name('admin.update');
@@ -35,7 +53,6 @@ Route::middleware('checkauth')->group(function() {
     Route::get('/siswa/{id}/edit', [SiswaController::class, 'edit'])->name('siswa.edit');
     Route::delete('/siswa/{id}', [SiswaController::class, 'destroy'])->name('siswa.destroy');
 
-
     Route::get('/guru', [GuruController::class, 'index'])->name('guru.index');
     Route::get('/guru/create', [GuruController::class, 'create'])->name('guru.create');
     Route::post('/guru', [GuruController::class, 'store'])->name('guru.store');
@@ -50,7 +67,6 @@ Route::middleware('checkauth')->group(function() {
     Route::put('/berita/update/{id}', [BeritaController::class, 'update'])->name('berita.update');
     Route::delete('/berita/hapus/{id}', [BeritaController::class, 'destroy'])->name('berita.destroy');
 
-    
     Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
     Route::get('/galeri/tambah', [GaleriController::class, 'create'])->name('galeri.create');
     Route::post('/galeri/simpan', [GaleriController::class, 'store'])->name('galeri.store');
@@ -68,7 +84,4 @@ Route::middleware('checkauth')->group(function() {
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/profile-sekolah/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile-sekolah/update', [ProfileController::class, 'update'])->name('profile.update');
-
 });
-
-

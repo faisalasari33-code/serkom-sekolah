@@ -2,16 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\galeri;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class GaleriController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $galeris = galeri::all();
-        return view('admin.galeri.index', compact('galeris'));
+        $query = galeri::query();
+
+        if ($request->filled('search')) {
+            $query->where('judul', 'like', '%' . $request->search . '%');
+        }
+
+        $galeri = $query->latest()->get();
+
+        return view('admin.galeri.index', compact('galeri'));
     }
 
     public function create()
@@ -22,20 +29,33 @@ class GaleriController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'judul' => 'required',
-            'keterangan' => 'required',
-            'kategori' => 'required',
-            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'judul'      => 'required|string|max:255',
+            'kategori'   => 'required|in:foto,video',
+            'tanggal'    => 'required|date',
+            'status'     => 'required|in:publish,draft',
+            'keterangan' => 'nullable|string',
+            'foto'       => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
+            'video'      => 'nullable|file|mimes:mp4,mov,ogg|max:51200',
         ]);
 
-        $input = $request->all();
-        $input['tanggal'] = date('Y-m-d');
+        $pathFoto  = null;
+        $pathVideo = null;
 
-        if ($request->hasFile('foto')) {
-            $input['foto'] = $request->file('foto')->store('galeri', 'public');
+        if ($request->kategori === 'video' && $request->hasFile('video')) {
+            $pathVideo = $request->file('video')->store('galeri/video', 'public');
+        } elseif ($request->hasFile('foto')) {
+            $pathFoto = $request->file('foto')->store('galeri/foto', 'public');
         }
 
-        galeri::create($input);
+        galeri::create([
+            'judul'      => $request->judul,
+            'kategori'   => $request->kategori,
+            'tanggal'    => $request->tanggal,
+            'status'     => $request->status,
+            'keterangan' => $request->keterangan,
+            'foto'       => $pathFoto,
+            'video'      => $pathVideo,
+        ]);
 
         return redirect()->route('galeri.index')->with('success', 'Data galeri berhasil ditambahkan!');
     }
@@ -51,32 +71,57 @@ class GaleriController extends Controller
         $galeri = galeri::findOrFail($id);
 
         $request->validate([
-            'judul' => 'required',
-            'keterangan' => 'required',
-            'kategori' => 'required',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'judul'      => 'required|string|max:255',
+            'kategori'   => 'required|in:foto,video',
+            'tanggal'    => 'required|date',
+            'status'     => 'required|in:publish,draft',
+            'keterangan' => 'nullable|string',
+            'foto'       => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
+            'video'      => 'nullable|file|mimes:mp4,mov,ogg|max:51200',
         ]);
 
-        $input = $request->all();
+        $pathFoto  = $galeri->foto;
+        $pathVideo = $galeri->video;
 
-        if ($request->hasFile('foto')) {
-            if ($galeri->foto) {
-                Storage::disk('public')->delete($galeri->foto);
+        if ($request->kategori === 'video') {
+            if ($request->hasFile('video')) {
+                if ($galeri->video && Storage::disk('public')->exists($galeri->video)) {
+                    Storage::disk('public')->delete($galeri->video);
+                }
+                $pathVideo = $request->file('video')->store('galeri/video', 'public');
             }
-            $input['foto'] = $request->file('foto')->store('galeri', 'public');
+        } else {
+            if ($request->hasFile('foto')) {
+                if ($galeri->foto && Storage::disk('public')->exists($galeri->foto)) {
+                    Storage::disk('public')->delete($galeri->foto);
+                }
+                $pathFoto = $request->file('foto')->store('galeri/foto', 'public');
+            }
         }
 
-        $galeri->update($input);
+        $galeri->update([
+            'judul'      => $request->judul,
+            'kategori'   => $request->kategori,
+            'tanggal'    => $request->tanggal,
+            'status'     => $request->status,
+            'keterangan' => $request->keterangan,
+            'foto'       => $pathFoto,
+            'video'      => $pathVideo,
+        ]);
 
-        return redirect()->route('galeri.index')->with('success', 'Data galeri berhasil diubah!');
+        return redirect()->route('galeri.index')->with('success', 'Data galeri berhasil diperbarui!');
     }
 
     public function destroy($id)
     {
         $galeri = galeri::findOrFail($id);
 
-        if ($galeri->foto) {
+        if ($galeri->foto && Storage::disk('public')->exists($galeri->foto)) {
             Storage::disk('public')->delete($galeri->foto);
+        }
+
+        if ($galeri->video && Storage::disk('public')->exists($galeri->video)) {
+            Storage::disk('public')->delete($galeri->video);
         }
 
         $galeri->delete();

@@ -60,10 +60,16 @@
                                     <label class="form-label" for="kontak">Kontak / No. Telepon</label>
                                     <input type="text" class="form-control @error('kontak') is-invalid @enderror" id="kontak" name="kontak" value="{{ old('kontak', $profile->kontak ?? '') }}" placeholder="Contoh: 081234567890" />
                                 </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="alamat">Alamat Lengkap</label>
+                                    <textarea class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" rows="3" placeholder="Masukkan alamat lengkap sekolah">{{ old('alamat', $profile->alamat ?? '') }}</textarea>
+                                </div>
                             </div>
 
-                            <!-- Kolom Kanan: Upload File & Alamat -->
+                            <!-- Kolom Kanan: Upload File (Logo, Foto Gedung, Foto Kepsek) -->
                             <div class="col-md-6">
+                                <!-- Upload Logo Sekolah -->
                                 <div class="mb-3">
                                     <label class="form-label" for="logo">Logo Sekolah</label>
                                     @if(isset($profile->logo) && $profile->logo)
@@ -75,20 +81,28 @@
                                     <div class="form-text">Format: JPG, JPEG, PNG (Maks. 2MB)</div>
                                 </div>
 
+                                <!-- Upload Foto Gedung Sekolah -->
                                 <div class="mb-3">
-                                    <label class="form-label" for="foto">Foto Sekolah</label>
+                                    <label class="form-label" for="foto">Foto Gedung Sekolah</label>
                                     @if(isset($profile->foto) && $profile->foto)
                                         <div class="mb-2">
-                                            <img src="{{ asset('storage/' . $profile->foto) }}" alt="Foto" class="rounded border" style="height: 80px; width: 120px; object-fit: cover;" />
+                                            <img src="{{ asset('storage/' . $profile->foto) }}" alt="Foto Sekolah" class="rounded border" style="height: 80px; width: 120px; object-fit: cover;" />
                                         </div>
                                     @endif
                                     <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto" accept="image/jpeg,image/png,image/jpg" />
                                     <div class="form-text">Format: JPG, JPEG, PNG (Maks. 2MB)</div>
                                 </div>
 
+                                <!-- Upload Foto Kepala Sekolah (Baru) -->
                                 <div class="mb-3">
-                                    <label class="form-label" for="alamat">Alamat Lengkap</label>
-                                    <textarea class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat" rows="3" placeholder="Masukkan alamat lengkap sekolah">{{ old('alamat', $profile->alamat ?? '') }}</textarea>
+                                    <label class="form-label" for="foto_kepala_sekolah">Foto Kepala Sekolah</label>
+                                    @if(isset($profile->foto_kepala_sekolah) && $profile->foto_kepala_sekolah)
+                                        <div class="mb-2">
+                                            <img src="{{ asset('storage/' . $profile->foto_kepala_sekolah) }}" alt="Foto Kepala Sekolah" class="rounded border" style="height: 90px; width: 75px; object-fit: cover;" />
+                                        </div>
+                                    @endif
+                                    <input type="file" class="form-control @error('foto_kepala_sekolah') is-invalid @enderror" id="foto_kepala_sekolah" name="foto_kepala_sekolah" accept="image/jpeg,image/png,image/jpg" />
+                                    <div class="form-text">Format: JPG, JPEG, PNG (Maks. 2MB)</div>
                                 </div>
                             </div>
                         </div>

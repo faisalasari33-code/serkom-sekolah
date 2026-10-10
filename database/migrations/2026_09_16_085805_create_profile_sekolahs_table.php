@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nama_sekolah');
             $table->string('kepala_sekolah');
+            $table->string('foto_kepala_sekolah')->nullable();
+            $table->string('npsn')->nullable();
             $table->string('foto')->nullable();
             $table->string('logo')->nullable();
             $table->text('alamat');

@@ -1,71 +1,108 @@
 @extends('template')
-@section('title', 'Edit Galeri')
 
 @section('content')
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">Admin / Galeri /</span> Edit Galeri
-    </h4>
+    <h4 class="fw-bold py-3 mb-4">Edit Data Galeri</h4>
 
     <div class="card mb-4">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="mb-0">Form Edit Galeri</h5>
-            <a href="{{ route('galeri.index') }}" class="btn btn-secondary btn-sm">
-                <i class="bx bx-arrow-back me-1"></i> Kembali
-            </a>
-        </div>
+        <h5 class="card-header">Form Edit Galeri</h5>
         <div class="card-body">
+            
             <form action="{{ route('galeri.update', $galeri->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
+                <!-- JUDUL -->
                 <div class="mb-3">
-                    <label class="form-label" for="judul">Judul Galeri</label>
-                    <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul" value="{{ old('judul', $galeri->judul) }}" required>
-                    @error('judul')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                    <label class="form-label">Judul Galeri</label>
+                    <input type="text" name="judul" class="form-control" value="{{ old('judul', $galeri->judul) }}" required>
                 </div>
 
+                <!-- KATEGORI -->
                 <div class="mb-3">
-                    <label class="form-label" for="kategori">Kategori</label>
-                    <input type="text" class="form-control @error('kategori') is-invalid @enderror" id="kategori" name="kategori" value="{{ old('kategori', $galeri->kategori) }}" required>
-                    @error('kategori')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                    <label class="form-label">Kategori</label>
+                    <select name="kategori" id="kategori" class="form-select" required onchange="toggleMediaInput()">
+                        <option value="foto" {{ old('kategori', $galeri->kategori) == 'foto' ? 'selected' : '' }}>Foto</option>
+                        <option value="video" {{ old('kategori', $galeri->kategori) == 'video' ? 'selected' : '' }}>Video (.mp4)</option>
+                    </select>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label" for="keterangan">Keterangan</label>
-                    <textarea class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" name="keterangan" rows="4" required>{{ old('keterangan', $galeri->keterangan) }}</textarea>
-                    @error('keterangan')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label d-block">Foto Saat Ini</label>
+                <!-- INPUT FOTO (Tampil jika kategori Foto) -->
+                <div class="mb-3" id="wrapper-foto">
+                    <label class="form-label">Ganti Foto (Opsional)</label>
+                    <input type="file" name="foto" class="form-control" accept="image/*">
+                    <small class="text-muted d-block mt-1">Biarkan kosong jika tidak ingin mengubah foto.</small>
                     @if($galeri->foto)
-                        <img src="{{ asset('storage/' . $galeri->foto) }}" alt="Foto Galeri" width="120" class="rounded mb-2 shadow-sm">
-                    @else
-                        <p class="text-muted small">Tidak ada foto.</p>
+                        <div class="mt-2">
+                            <img src="{{ asset('storage/' . $galeri->foto) }}" alt="Foto Saat Ini" width="120" class="rounded shadow-sm">
+                        </div>
                     @endif
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label" for="foto">Ganti Foto (Opsional)</label>
-                    <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto">
-                    <div class="form-text">Biarkan kosong jika tidak ingin mengubah foto.</div>
-                    @error('foto')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
+                <!-- INPUT VIDEO (Tampil jika kategori Video) -->
+                <div class="mb-3" id="wrapper-video" style="display: none;">
+                    <label class="form-label">Ganti File Video MP4 (Opsional)</label>
+                    <input type="file" name="video" class="form-control" accept="video/mp4,video/mov,video/ogg">
+                    <small class="text-muted d-block mt-1">Biarkan kosong jika tidak ingin mengubah video.</small>
+                    @if($galeri->video)
+                        <div class="mt-2">
+                            <video width="200" controls class="rounded shadow-sm">
+                                <source src="{{ asset('storage/' . $galeri->video) }}" type="video/mp4">
+                            </video>
+                        </div>
+                    @endif
                 </div>
 
-                <button type="submit" class="btn btn-primary">
-                    <i class="bx bx-save me-1"></i> Perbarui Galeri
-                </button>
+                <!-- TANGGAL -->
+                <div class="mb-3">
+                    <label class="form-label">Tanggal</label>
+                    <input type="date" name="tanggal" class="form-control" value="{{ old('tanggal', $galeri->tanggal) }}" required>
+                </div>
+
+                <!-- STATUS -->
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Status Publikasi</label>
+                    <select name="status" class="form-select" required>
+                        <option value="draft" {{ old('status', $galeri->status) == 'draft' ? 'selected' : '' }}>Draft</option>
+                        <option value="publish" {{ old('status', $galeri->status) == 'publish' ? 'selected' : '' }}>Publish</option>
+                    </select>
+                </div>
+
+                <!-- KETERANGAN -->
+                <div class="mb-3">
+                    <label class="form-label">Keterangan</label>
+                    <textarea name="keterangan" class="form-control" rows="3" required>{{ old('keterangan', $galeri->keterangan) }}</textarea>
+                </div>
+
+                <!-- TOMBOL SIMPAN -->
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary me-2">Simpan Perubahan</button>
+                    <a href="{{ route('galeri.index') }}" class="btn btn-outline-secondary">Batal</a>
+                </div>
+
             </form>
+
         </div>
     </div>
 </div>
+
+<script>
+function toggleMediaInput() {
+    var kategori = document.getElementById('kategori').value;
+    var wrapperFoto = document.getElementById('wrapper-foto');
+    var wrapperVideo = document.getElementById('wrapper-video');
+
+    if (kategori === 'video') {
+        wrapperFoto.style.display = 'none';
+        wrapperVideo.style.display = 'block';
+    } else {
+        wrapperFoto.style.display = 'block';
+        wrapperVideo.style.display = 'none';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    toggleMediaInput();
+});
+</script>
 @endsection

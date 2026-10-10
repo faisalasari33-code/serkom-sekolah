@@ -14,10 +14,12 @@ return new class extends Migration
         Schema::create('galeris', function (Blueprint $table) {
             $table->id();
             $table->string('judul', 255);
-            $table->text('keterangan');
-            $table->string('foto', 255);
-            $table->enum('kategori', ['foto', 'video']);
-            $table->date('tanggal');
+            $table->text('keterangan')->nullable();
+            $table->enum('kategori', ['foto', 'video'])->default('foto');
+            $table->string('foto', 255)->nullable(); 
+            $table->string('video', 255)->nullable(); 
+            $table->enum('status', ['draft', 'publish'])->default('draft');
+            $table->date('tanggal')->nullable();
             $table->timestamps();
         });
     }

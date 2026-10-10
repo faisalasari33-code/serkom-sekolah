@@ -86,4 +86,5 @@ class GuruController extends Controller
 
         return redirect()->route('guru.index')->with('success', 'Data guru berhasil dihapus');
     }
+
 }
