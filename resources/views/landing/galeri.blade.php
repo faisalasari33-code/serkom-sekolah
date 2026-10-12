@@ -4,17 +4,12 @@
 
 @push('styles')
 <style>
-    /* =========================
-       HALAMAN GALERI
-    ========================= */
     .gallery-section {
         background: #fff;
         min-height: 70vh;
-        /* Padding atas disesuaikan agar tidak tertutup Navbar Fixed */
         padding: 100px 0 60px;
     }
 
-    /* BREADCRUMB & DIVIDER */
     .gallery-breadcrumb {
         font-size: 15px;
         color: #444;
@@ -45,7 +40,6 @@
         margin-bottom: 30px;
     }
 
-    /* KARTU GALERI */
     .gallery-card {
         height: 100%;
         border: 1px solid #efefef;
@@ -61,7 +55,6 @@
         box-shadow: 0 10px 22px rgba(0, 0, 0, .08);
     }
 
-    /* CONTAINER GAMBAR + BADGE */
     .gallery-image-wrapper {
         position: relative;
         width: 100%;
@@ -83,7 +76,6 @@
         transform: scale(1.05);
     }
 
-    /* BADGE IKON KAMERA DI POJOK KIRI BAWAH GAMBAR */
     .gallery-badge {
         position: absolute;
         bottom: 12px;
@@ -101,7 +93,6 @@
         pointer-events: none;
     }
 
-    /* KONTEN JUDUL DENGAN TEKS TERSEDIA DI TENAH */
     .gallery-body {
         padding: 18px 20px;
         text-align: center;
@@ -151,58 +142,50 @@
 @endpush
 
 @section('content')
-<section class="gallery-section">
-    <div class="container">
+            <section class="gallery-section">
+                <div class="container">
 
-        {{-- BREADCRUMB --}}
-        <div class="gallery-breadcrumb">
-            <a href="{{ url('/') }}">Beranda</a> &raquo; Galeri
-        </div>
+                    <div class="gallery-breadcrumb">
+                        <a href="{{ url('/') }}">Beranda</a> &raquo; Galeri
+                    </div>
 
-        <hr class="gallery-divider">
+                    <hr class="gallery-divider">
+                    <h1 class="gallery-page-title">Galeri</h1>
+                    <div class="row g-4">
+                        @forelse($galeri as $item)
+                            <div class="col-lg-4 col-md-6">
+                                <div class="gallery-card">
+                                    <div class="gallery-image-wrapper">
+                @if($item->kategori === 'video' && !empty($item->video))
 
-        {{-- JUDUL HALAMAN --}}
-        <h1 class="gallery-page-title">Galeri</h1>
+                    <video controls class="w-100 h-100" style="object-fit: cover;">
+                        <source src="{{ asset('storage/' . $item->video) }}" type="video/mp4">
+                        Browser Anda tidak mendukung pemutaran video.
+                    </video>
 
-        {{-- DAFTAR KARTU GALERI --}}
-        <div class="row g-4">
-            @forelse($galeri as $item)
-                <div class="col-lg-4 col-md-6">
-                    <div class="gallery-card">
-                        <div class="gallery-image-wrapper">
-    @if($item->kategori === 'video' && !empty($item->video))
-        {{-- PEMUTAR VIDEO LOKAL HTML5 --}}
-        <video controls class="w-100 h-100" style="object-fit: cover;">
-            <source src="{{ asset('storage/' . $item->video) }}" type="video/mp4">
-            Browser Anda tidak mendukung pemutaran video.
-        </video>
+                    <div class="gallery-badge bg-danger text-white">
+                        <i class="fa-solid fa-video"></i>
+                        <span>Video</span>
+                    </div>
+                @else
+                    <img
+                        src="{{ asset('storage/' . $item->foto) }}"
+                        class="gallery-image"
+                        alt="{{ $item->judul }}"
+                        loading="lazy"
+                        data-bs-toggle="modal"
+                        data-bs-target="#galeriModal"
+                        data-image="{{ asset('storage/' . $item->foto) }}"
+                        data-title="{{ $item->judul }}"
+                        onerror="this.onerror=null;this.src='{{ asset('assets/img/avatars/logo.jpg') }}';"
+                    >
 
-        {{-- IKON VIDEO & KATEGORI --}}
-        <div class="gallery-badge bg-danger text-white">
-            <i class="fa-solid fa-video"></i>
-            <span>Video</span>
-        </div>
-    @else
-        {{-- TAMPILKAN FOTO (ASLI TANPA DIUBAH) --}}
-        <img
-            src="{{ asset('storage/' . $item->foto) }}"
-            class="gallery-image"
-            alt="{{ $item->judul }}"
-            loading="lazy"
-            data-bs-toggle="modal"
-            data-bs-target="#galeriModal"
-            data-image="{{ asset('storage/' . $item->foto) }}"
-            data-title="{{ $item->judul }}"
-            onerror="this.onerror=null;this.src='{{ asset('assets/img/avatars/logo.jpg') }}';"
-        >
-
-        {{-- IKON KAMERA & INDIKATOR FOTO --}}
-        <div class="gallery-badge">
-            <i class="fa-solid fa-camera"></i>
-            <span>Foto</span>
-        </div>
-    @endif
-</div>
+                    <div class="gallery-badge">
+                        <i class="fa-solid fa-camera"></i>
+                        <span>Foto</span>
+                    </div>
+                @endif
+            </div>
 
                         <div class="gallery-body">
                             <h5 class="gallery-title">
@@ -226,7 +209,6 @@
     </div>
 </section>
 
-{{-- MODAL PREVIEW FOTO --}}
 <div class="modal fade" id="galeriModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content border-0 rounded-4 overflow-hidden">

@@ -9,7 +9,6 @@ use App\Models\Ekstrakurikuler;
 
 class DashboardController extends Controller
 {
-    //
     public function index() 
     {
         $totalSiswa = Siswa::count();

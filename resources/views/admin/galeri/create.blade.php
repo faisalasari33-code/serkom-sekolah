@@ -13,13 +13,11 @@
             <form action="{{ route('galeri.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                <!-- JUDUL -->
                 <div class="mb-3">
                     <label class="form-label">JUDUL GALERI</label>
                     <input type="text" name="judul" class="form-control" placeholder="Masukkan judul galeri" value="{{ old('judul') }}" required>
                 </div>
 
-                <!-- KATEGORI -->
                 <div class="mb-3">
                     <label class="form-label">KATEGORI</label>
                     <select name="kategori" id="kategori" class="form-select" onchange="toggleMediaType()" required>
@@ -28,13 +26,11 @@
                     </select>
                 </div>
 
-                <!-- TANGGAL -->
                 <div class="mb-3">
                     <label class="form-label">TANGGAL</label>
                     <input type="date" name="tanggal" class="form-control" value="{{ old('tanggal', date('Y-m-d')) }}" required>
                 </div>
 
-                <!-- STATUS GALERI -->
                 <div class="mb-3">
                     <label class="form-label">STATUS GALERI</label>
                     <select name="status" class="form-select" required>
@@ -43,27 +39,23 @@
                     </select>
                 </div>
 
-                <!-- INPUT UPLOAD FOTO -->
                 <div class="mb-3" id="wrapper-foto">
                     <label class="form-label">UPLOAD FOTO</label>
                     <input type="file" name="foto" id="foto" class="form-control" accept="image/png, image/jpeg, image/jpg">
                     <div class="form-text">Format: JPEG, PNG, JPG (Maksimal 5MB).</div>
                 </div>
 
-                <!-- INPUT UPLOAD FILE VIDEO -->
                 <div class="mb-3 d-none" id="wrapper-video">
                     <label class="form-label">UPLOAD FILE VIDEO</label>
                     <input type="file" name="video" id="video" class="form-control" accept="video/mp4,video/mkv,video/ogg">
                     <div class="form-text">Format file: MP4, MOV, OGG (Maksimal 50MB).</div>
                 </div>
 
-                <!-- KETERANGAN -->
                 <div class="mb-3">
                     <label class="form-label">KETERANGAN</label>
                     <textarea name="keterangan" class="form-control" rows="3" placeholder="Tulis keterangan foto/video di sini...">{{ old('keterangan') }}</textarea>
                 </div>
 
-                <!-- TOMBOL SIMPAN -->
                 <div class="mt-4">
                     <button type="submit" class="btn btn-primary me-2">Simpan Data</button>
                     <a href="{{ route('galeri.index') }}" class="btn btn-outline-secondary">Batal</a>

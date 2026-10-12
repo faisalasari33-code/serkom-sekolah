@@ -4,13 +4,9 @@
 
 @push('styles')
 <style>
-    /* =========================
-       HALAMAN PROFIL SEKOLAH
-    ========================= */
     .profil-page {
         background: #fdfdfd;
         min-height: 70vh;
-        /* Padding atas disesuaikan agar tidak tertutup Navbar Fixed */
         padding: 100px 0 60px;
     }
 
@@ -21,7 +17,6 @@
         padding: 0 24px;
     }
 
-    /* BREADCRUMB & DIVIDER */
     .profil-breadcrumb {
         font-size: 15px;
         color: #444;
@@ -52,7 +47,6 @@
         margin-bottom: 30px;
     }
 
-    /* HERO SECTION PROFIL */
     .profil-hero-card {
         background: #fff;
         border: 1px solid #f0f0f0;
@@ -113,7 +107,6 @@
         white-space: pre-line;
     }
 
-    /* STATISTIK RINGKAS DARI FIELD MODEL */
     .profil-stats-grid {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -162,7 +155,6 @@
         margin: 0;
     }
 
-    /* SAMBUTAN KEPALA SEKOLAH */
     .profil-sambutan-card {
         background: linear-gradient(135deg, #f8faff 0%, #ffffff 100%);
         border: 1px solid #e7eeff;
@@ -205,49 +197,6 @@
         margin: 0;
     }
 
-    /* VISI & MISI PANEL */
-    .profil-panel {
-        background: #fff;
-        border: 1px solid #f0f0f0;
-        border-radius: 20px;
-        padding: 32px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-    }
-
-    .profil-panel-header {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 20px;
-    }
-
-    .profil-panel-icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-        background: #f0f6ff;
-        color: #0d6efd;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-    }
-
-    .profil-panel-title {
-        font-size: 20px;
-        font-weight: 800;
-        color: #1a1a1a;
-        margin: 0;
-    }
-
-    .profil-visi-misi-content {
-        color: #555;
-        font-size: 15px;
-        line-height: 1.8;
-        white-space: pre-line;
-    }
-
-    /* RESPONSIVE */
     @media (max-width: 992px) {
         .profil-hero-grid {
             grid-template-columns: 1fr;
@@ -282,7 +231,6 @@
 @section('content')
 <div class="profil-page">
     <div class="profil-container">
-
         @php
             $namaSekolah = $profil->nama_sekolah ?? 'SDN 6 Mangunreja';
             $kepalaSekolah = $profil->kepala_sekolah ?? 'Belum diatur';
@@ -291,20 +239,18 @@
             $kontak = $profil->kontak ?? '-';
             $tahunBerdiri = $profil->tahun_berdiri ?? '-';
             $deskripsi = $profil->deskripsi ?? 'Belum ada deskripsi profil sekolah.';
-            $visiMisi = $profil->{'visi-misi'} ?? $profil->visi_misi ?? 'Belum ada data visi & misi.';
+            $visi = $profil->visi ?? 'Belum ada data visi sekolah.';
+            $misi = $profil->misi ?? 'Belum ada data misi sekolah.';
         @endphp
 
-        {{-- BREADCRUMB --}}
         <div class="profil-breadcrumb">
             <a href="{{ url('/') }}">Beranda</a> &raquo; Profil Sekolah
         </div>
 
         <hr class="profil-divider">
 
-        {{-- JUDUL HALAMAN --}}
         <h1 class="profil-page-title">Profil Sekolah</h1>
 
-        {{-- HERO SECTION --}}
         <div class="profil-hero-card">
             <div class="profil-hero-grid">
                 <div>
@@ -391,17 +337,38 @@
             </div>
         </div>
 
-        {{-- VISI & MISI DARI FIELD MODEL --}}
-        <div class="profil-panel" id="visi-misi">
-            <div class="profil-panel-header">
-                <div class="profil-panel-icon">
-                    <i class="fa-solid fa-bullseye"></i>
+        {{-- VISI & MISI (DIPISAH MENJADI 2 CARD BERJAJAR) --}}
+        <div class="row g-4 align-items-stretch mb-5" id="visi-misi">
+            {{-- Card Visi --}}
+            <div class="col-lg-6 col-md-12 d-flex align-items-stretch">
+                <div class="card border-0 shadow-sm w-100 h-100 p-4 bg-white rounded-4 d-flex flex-column">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="rounded-circle p-2 me-3" style="background: rgba(217,119,6,.15); color: #f59e0b;">
+                            <i class="fa-solid fa-bullseye fs-4"></i>
+                        </div>
+                        <h4 class="fw-bold text-dark m-0" style="font-size: 20px;">Visi Sekolah</h4>
+                    </div>
+                    <div class="section-line mb-3" style="width: 40px; height: 3px; background-color: #f59e0b;"></div>
+                    <p class="text-secondary small lh-base flex-grow-1" style="font-size: 14px; white-space: pre-line;">
+                        {{ $visi }}
+                    </p>
                 </div>
-                <h3 class="profil-panel-title">Visi &amp; Misi Sekolah</h3>
             </div>
 
-            <div class="profil-visi-misi-content">
-                {{ $visiMisi }}
+            {{-- Card Misi --}}
+            <div class="col-lg-6 col-md-12 d-flex align-items-stretch">
+                <div class="card border-0 shadow-sm w-100 h-100 p-4 bg-white rounded-4 d-flex flex-column">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="rounded-circle p-2 me-3" style="background: rgba(13,110,253,.15); color: #0d6efd;">
+                            <i class="fa-solid fa-list-check fs-4"></i>
+                        </div>
+                        <h4 class="fw-bold text-dark m-0" style="font-size: 20px;">Misi Sekolah</h4>
+                    </div>
+                    <div class="section-line mb-3" style="width: 40px; height: 3px; background-color: #0d6efd;"></div>
+                    <div class="text-secondary small lh-base flex-grow-1" style="font-size: 14px; white-space: pre-line;">
+                        {!! nl2br(e($misi)) !!}
+                    </div>
+                </div>
             </div>
         </div>
 

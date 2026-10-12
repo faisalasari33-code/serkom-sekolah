@@ -63,7 +63,6 @@
                             <div class="form-text">Format: JPG, JPEG, PNG. Ukuran maksimal 2MB. Biarkan kosong jika tidak ingin mengubah foto.</div>
                         </div>
 
-                        {{-- Tombol Submit --}}
                         <button type="submit" class="btn btn-primary">
                             <i class="bx bx-save me-1"></i> Simpan Perubahan
                         </button>

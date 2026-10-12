@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\profile_sekolah; // Sesuaikan dengan nama model kamu
+use App\Models\profile_sekolah; 
 use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
     public function index()
     {
-        // Ambil data profil pertama untuk dikirim ke view index
         $profile = profile_sekolah::first();
         return view('admin.profile.index', compact('profile'));
     }
@@ -23,30 +22,31 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
-  
         $profile = profile_sekolah::first();
         
         $request->validate([
-            'nama_sekolah'  => 'required|string|max:255',
-            'kepala_sekolah'=> 'required|string|max:255',
-            'foto_kepala_sekolah'=> 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'foto'=> 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'nama_sekolah' => 'required|string|max:255',
+            'kepala_sekolah' => 'required|string|max:255',
+            'foto_kepala_sekolah' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'npsn' => 'required|max:10',
             'alamat' => 'required|string',
-            'kontak' => 'required|string|max:50',
-            'visi-misi' => 'required|string', 
+            'kontak'=> 'required|string|max:50',
+            'visi'  => 'required|string', 
+            'misi' => 'required|string', 
             'tahun_berdiri' => 'nullable|string|max:10',
-            'deskripsi'     => 'nullable|string',
+            'deskripsi'  => 'nullable|string',
         ]);
 
         $data = [
-            'nama_sekolah'  => $request->nama_sekolah,
-            'kepala_sekolah'=> $request->kepala_sekolah,
+            'nama_sekolah' => $request->nama_sekolah,
+            'kepala_sekolah' => $request->kepala_sekolah,
             'alamat' => $request->alamat,
-            'kontak'=> $request->kontak,
+            'kontak' => $request->kontak,
             'npsn' => $request->npsn,
-            'visi-misi' => $request->input('visi-misi'),
+            'visi' => $request->visi,     // Simpan ke kolom visi
+            'misi' => $request->misi,     // Simpan ke kolom misi
             'tahun_berdiri'=> $request->tahun_berdiri,
             'deskripsi' => $request->deskripsi,
         ];
@@ -57,7 +57,6 @@ class ProfileController extends Controller
             }
             $data['foto'] = $request->file('foto')->store('profile', 'public');
         }
-
 
         if ($request->hasFile('logo')) {
             if ($profile && $profile->logo) {

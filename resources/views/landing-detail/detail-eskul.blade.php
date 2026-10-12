@@ -173,7 +173,6 @@
 @section('content')
 <section class="ekskul-detail-page">
     <div class="ekskul-detail-container">
-
         @php
             $namaEkskul = $ekstrakurikuler->nama_ekstrakulikuler ?? $ekstrakurikuler->nama_ekskul ?? 'Nama Ekstrakurikuler';
             $jadwal = $ekstrakurikuler->jadwal_latihan ?? $ekstrakurikuler->jadwal ?? '-';

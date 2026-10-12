@@ -7,18 +7,15 @@
     <div class="card mb-4">
         <h5 class="card-header">Form Edit Galeri</h5>
         <div class="card-body">
-            
             <form action="{{ route('galeri.update', $galeri->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
-                <!-- JUDUL -->
                 <div class="mb-3">
                     <label class="form-label">Judul Galeri</label>
                     <input type="text" name="judul" class="form-control" value="{{ old('judul', $galeri->judul) }}" required>
                 </div>
 
-                <!-- KATEGORI -->
                 <div class="mb-3">
                     <label class="form-label">Kategori</label>
                     <select name="kategori" id="kategori" class="form-select" required onchange="toggleMediaInput()">
@@ -27,7 +24,6 @@
                     </select>
                 </div>
 
-                <!-- INPUT FOTO (Tampil jika kategori Foto) -->
                 <div class="mb-3" id="wrapper-foto">
                     <label class="form-label">Ganti Foto (Opsional)</label>
                     <input type="file" name="foto" class="form-control" accept="image/*">
@@ -39,7 +35,6 @@
                     @endif
                 </div>
 
-                <!-- INPUT VIDEO (Tampil jika kategori Video) -->
                 <div class="mb-3" id="wrapper-video" style="display: none;">
                     <label class="form-label">Ganti File Video MP4 (Opsional)</label>
                     <input type="file" name="video" class="form-control" accept="video/mp4,video/mov,video/ogg">
@@ -53,13 +48,11 @@
                     @endif
                 </div>
 
-                <!-- TANGGAL -->
                 <div class="mb-3">
                     <label class="form-label">Tanggal</label>
                     <input type="date" name="tanggal" class="form-control" value="{{ old('tanggal', $galeri->tanggal) }}" required>
                 </div>
 
-                <!-- STATUS -->
                 <div class="mb-3">
                     <label class="form-label fw-bold">Status Publikasi</label>
                     <select name="status" class="form-select" required>
@@ -68,20 +61,16 @@
                     </select>
                 </div>
 
-                <!-- KETERANGAN -->
                 <div class="mb-3">
                     <label class="form-label">Keterangan</label>
                     <textarea name="keterangan" class="form-control" rows="3" required>{{ old('keterangan', $galeri->keterangan) }}</textarea>
                 </div>
 
-                <!-- TOMBOL SIMPAN -->
                 <div class="mt-4">
                     <button type="submit" class="btn btn-primary me-2">Simpan Perubahan</button>
                     <a href="{{ route('galeri.index') }}" class="btn btn-outline-secondary">Batal</a>
                 </div>
-
             </form>
-
         </div>
     </div>
 </div>

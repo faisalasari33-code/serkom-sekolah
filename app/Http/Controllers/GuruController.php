@@ -32,7 +32,6 @@ class GuruController extends Controller
 
         $input = $request->all();
 
-      
         if ($request->hasFile('foto')) {
             $input['foto'] = $request->file('foto')->store('guru', 'public');
         }
@@ -47,7 +46,7 @@ class GuruController extends Controller
     {
         $guru = Guru::findOrFail($id);
         return view('admin.guru.edit', compact('guru'));
-    }
+    } 
 
    
     public function update(Request $request, $id) 

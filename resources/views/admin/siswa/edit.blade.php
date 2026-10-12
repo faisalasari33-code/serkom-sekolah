@@ -45,7 +45,7 @@
 
              <div class="mb-3">
                   <label class="form-label" for="tanggal-masuk">tanggal_masuk</label>
-                  <input type="text" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value="{{ old('tanggal_masuk', $siswa->tanggal_masuk ?? '') }}" placeholder="Contoh: 1985" />
+                  <input type="date" class="form-control" id="tanggal_masuk" name="tanggal_masuk" value="{{ old('tanggal_masuk', $siswa->tanggal_masuk ?? '') }}" placeholder="Contoh: 1985" />
             </div>
 
             <div class="mt-4">

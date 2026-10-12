@@ -8,8 +8,6 @@
         <h5 class="mb-0">Edit Data User</h5>
     </div>
     <div class="card-body">
-
-        <!-- Menampilkan Pesan Error Validasi -->
         @if ($errors->any())
             <div class="alert alert-danger alert-dismissible mb-3" role="alert">
                 <ul class="mb-0 ps-3">
@@ -35,14 +33,12 @@
                 <input type="text" class="form-control" id="username" name="username" value="{{ old('username', $user->username) }}" placeholder="Masukkan username..." autocomplete="off" required />
             </div>
 
-            <!-- Password -->
             <div class="mb-3">
                 <label class="form-label" for="password">Password Baru</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="Kosongkan jika tidak ingin mengubah password" />
                 <div class="form-text"><small class="text-muted">Biarkan kosong jika password lama tidak ingin diganti.</small></div>
             </div>
 
-            <!-- Role -->
          <div class="mb-3">
             <label class="form-label" for="role">Role / Hak Akses</label>
             <select class="form-control" id="role" name="role" required>

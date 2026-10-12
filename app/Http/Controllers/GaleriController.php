@@ -68,6 +68,9 @@ class GaleriController extends Controller
 
     public function update(Request $request, $id)
     {
+        
+        
+        // dd($request->all(), $request->file('foto'));
         $galeri = galeri::findOrFail($id);
 
         $request->validate([
@@ -83,20 +86,20 @@ class GaleriController extends Controller
         $pathFoto  = $galeri->foto;
         $pathVideo = $galeri->video;
 
-        if ($request->kategori === 'video') {
-            if ($request->hasFile('video')) {
-                if ($galeri->video && Storage::disk('public')->exists($galeri->video)) {
-                    Storage::disk('public')->delete($galeri->video);
-                }
-                $pathVideo = $request->file('video')->store('galeri/video', 'public');
+        // Cek jika ada file foto baru yang diunggah
+        if ($request->hasFile('foto')) {
+            if ($galeri->foto && Storage::disk('public')->exists($galeri->foto)) {
+                Storage::disk('public')->delete($galeri->foto);
             }
-        } else {
-            if ($request->hasFile('foto')) {
-                if ($galeri->foto && Storage::disk('public')->exists($galeri->foto)) {
-                    Storage::disk('public')->delete($galeri->foto);
-                }
-                $pathFoto = $request->file('foto')->store('galeri/foto', 'public');
+            $pathFoto = $request->file('foto')->store('galeri/foto', 'public');
+        }
+
+        // video
+        if ($request->hasFile('video')) {
+            if ($galeri->video && Storage::disk('public')->exists($galeri->video)) {
+                Storage::disk('public')->delete($galeri->video);
             }
+            $pathVideo = $request->file('video')->store('galeri/video', 'public');
         }
 
         $galeri->update([

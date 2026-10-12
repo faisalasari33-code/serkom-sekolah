@@ -234,7 +234,6 @@
                 <div class="col-lg-4 col-md-6 text-start">
                     <h6 class="fw-bold text-white mb-2" style="font-size: 15px;">Navigasi Cepat</h6>
                     <div class="g-k mb-3"></div>
-
                     <ul class="list-unstyled text-white-50 d-flex flex-column gap-2 mb-0" style="font-size: 13px;">
                         <li>
                             <a href="{{ url('/#profil') }}" class="text-white-50 text-decoration-none hover-white">
@@ -269,13 +268,11 @@
                     </ul>
                 </div>
             </div>
-
             <div class="border-top mt-4 pt-3 text-center text-white-50" style="border-color: rgba(255, 255, 255, 0.08) !important; font-size: 12px;">
                 <p class="mb-0">&copy; {{ date('Y') }} <strong>SDN 6 Mangunreja</strong>. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
@@ -294,11 +291,8 @@
 
             window.addEventListener('scroll', updateNavbar);
             updateNavbar();
-        }
-
-        
+        }       
     </script>
-
     @stack('scripts')
 </body>
 </html>

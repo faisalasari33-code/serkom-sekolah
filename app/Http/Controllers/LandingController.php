@@ -52,7 +52,7 @@ class LandingController extends Controller
             'totalGuru',
             'totalEskul'
         ));
-    }
+        }
 
     public function beritaIndex(Request $request)
     {
@@ -87,14 +87,13 @@ class LandingController extends Controller
         }
 
         $galeri = $query->latest()->get();
-        $profil = $this->getProfile(); // Ditambahkan agar $profil terbaca di view landing.galeri
+        $profil = $this->getProfile(); 
 
         return view('landing.galeri', compact('galeri', 'profil'));
     }
 
     public function galeriDetail($id = null)
     {
-        // Jika diakses tanpa ID (nyasar dari URL /galeri-sekolah), kembalikan ke galeriIndex
         if (!$id) {
             return $this->galeriIndex(request());
         }
@@ -136,8 +135,8 @@ class LandingController extends Controller
 
     public function beritaDetail($id)
     {
-        $profil  = $this->getProfile();
-        $berita  = berita::where('id_berita', $id)->firstOrFail();
+        $profil = $this->getProfile();
+        $berita = berita::where('id_berita', $id)->firstOrFail();
         $galeris = galeri::where('status', 'publish')->latest()->take(5)->get();
         
         return view('landing-detail.detail-berita', compact('berita', 'galeris', 'profil'));
@@ -153,7 +152,7 @@ class LandingController extends Controller
 
     public function eskulDetail($id)
     {
-        $profil          = $this->getProfile();
+        $profil = $this->getProfile();
         $ekstrakurikuler = ekstrakurikuler::findOrFail($id);
         
         return view('landing-detail.detail-eskul', compact('ekstrakurikuler', 'profil'));

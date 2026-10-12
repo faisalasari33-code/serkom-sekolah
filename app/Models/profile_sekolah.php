@@ -19,7 +19,8 @@ class profile_sekolah extends Model
         'npsn',
         'alamat',
         'kontak',
-        'visi-misi',    
+        'visi',
+        'misi',    
         'tahun_berdiri',
         'deskripsi',
     ];

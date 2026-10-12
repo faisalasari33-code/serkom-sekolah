@@ -4,9 +4,6 @@
 
 @push('styles')
 <style>
-    /* =========================
-       HALAMAN STAF & GURU
-    ========================= */
     .guru-page {
         background: #fff;
         min-height: 70vh;
@@ -20,9 +17,6 @@
         padding: 0 24px;
     }
 
-    /* =========================
-       BREADCRUMB & JUDUL
-    ========================= */
     .guru-breadcrumb {
         font-size: 15px;
         color: #444;
@@ -54,16 +48,12 @@
         line-height: 1.2;
     }
 
-    /* =========================
-       GRID KARTU GURU
-    ========================= */
     .guru-list {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 24px;
     }
 
-    /* KARTU UTAMA */
     .guru-card {
         background: #fff;
         border-radius: 20px;
@@ -72,13 +62,11 @@
         padding-bottom: 15px;
     }
 
-    /* HOVER PADA KARTU (TERANGKAT & ADA SHADOW) */
     .guru-card:hover {
         transform: translateY(-8px);
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     }
 
-    /* KOTAK FOTO BERLATAR MERAH */
     .guru-photo-wrapper {
         width: 100%;
         height: 380px;
@@ -97,10 +85,9 @@
     }
 
     .guru-card:hover .guru-photo {
-        transform: scale(1.04); /* Zoom halus pada foto saat hover */
+        transform: scale(1.04);
     }
 
-    /* TEKS NAMA & JABATAN (SELALU KELIATAN DI BAWAH FOTO) */
     .guru-info {
         padding: 16px 8px 0;
         text-align: center;
@@ -116,7 +103,7 @@
     }
 
     .guru-card:hover .guru-name {
-        color: #0d6efd; /* Warna nama berubah biru pas di-hover */
+        color: #0d6efd; 
     }
 
     .guru-position {
@@ -125,9 +112,6 @@
         margin: 0;
     }
 
-    /* =========================
-       RESPONSIVE DESIGN
-    ========================= */
     @media (max-width: 1100px) {
         .guru-list {
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -172,7 +156,6 @@
 <section class="guru-page">
     <div class="guru-container">
 
-        <!-- Breadcrumb & Judul -->
         <div class="guru-breadcrumb">
             <a href="{{ url('/') }}">Beranda</a> &raquo; Staf &amp; Guru
         </div>
@@ -198,10 +181,8 @@
                     </div>
                 </a>
             @empty
-                ...
             @endforelse
         </div>
-
     </div>
 </section>
 @endsection

@@ -6,7 +6,6 @@
         <span class="text-muted fw-light">Admin / Profil Sekolah /</span> Edit Profil
     </h4>
 
-    <!-- Notifikasi Error Validasi -->
     @if ($errors->any())
         <div class="alert alert-danger alert-dismissible" role="alert">
             <h6 class="alert-heading fw-bold mb-1">Terjadi Kesalahan!</h6>
@@ -32,9 +31,7 @@
                     <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-
                         <div class="row">
-                            <!-- Kolom Kiri: Data Identitas Utama -->
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label" for="npsn">NPSN</label>
@@ -67,9 +64,7 @@
                                 </div>
                             </div>
 
-                            <!-- Kolom Kanan: Upload File (Logo, Foto Gedung, Foto Kepsek) -->
                             <div class="col-md-6">
-                                <!-- Upload Logo Sekolah -->
                                 <div class="mb-3">
                                     <label class="form-label" for="logo">Logo Sekolah</label>
                                     @if(isset($profile->logo) && $profile->logo)
@@ -81,7 +76,6 @@
                                     <div class="form-text">Format: JPG, JPEG, PNG (Maks. 2MB)</div>
                                 </div>
 
-                                <!-- Upload Foto Gedung Sekolah -->
                                 <div class="mb-3">
                                     <label class="form-label" for="foto">Foto Gedung Sekolah</label>
                                     @if(isset($profile->foto) && $profile->foto)
@@ -93,7 +87,6 @@
                                     <div class="form-text">Format: JPG, JPEG, PNG (Maks. 2MB)</div>
                                 </div>
 
-                                <!-- Upload Foto Kepala Sekolah (Baru) -->
                                 <div class="mb-3">
                                     <label class="form-label" for="foto_kepala_sekolah">Foto Kepala Sekolah</label>
                                     @if(isset($profile->foto_kepala_sekolah) && $profile->foto_kepala_sekolah)
@@ -109,23 +102,35 @@
 
                         <hr class="my-4">
 
-                        <!-- Bagian Teks Panjang (Visi Misi & Deskripsi) -->
-                        <div class="row">
-                            <div class="col-12 mb-3">
-                                <label class="form-label" for="visi-misi">Visi & Misi</label>
-                                <textarea class="form-control @error('visi-misi') is-invalid @enderror" id="visi-misi" name="visi-misi" rows="5" placeholder="Tuliskan Visi dan Misi sekolah di sini...">{{ old('visi-misi', $profile->{'visi-misi'} ?? '') }}</textarea>
-                                @error('visi-misi')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="col-12 mb-4">
-                                <label class="form-label" for="deskripsi">Deskripsi / Sejarah Sekolah</label>
-                                <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5" placeholder="Tuliskan sejarah singkat atau deskripsi sekolah...">{{ old('deskripsi', $profile->deskripsi ?? '') }}</textarea>
-                            </div>
+                    <div class="row">
+                        {{-- Input Visi --}}
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="visi">Visi Sekolah</label>
+                            <textarea class="form-control @error('visi') is-invalid @enderror" id="visi" name="visi" rows="3" placeholder="Tuliskan Visi sekolah di sini...">{{ old('visi', $profile->visi ?? '') }}</textarea>
+                            @error('visi')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
-                        <!-- Tombol Aksi -->
+                        {{-- Input Misi --}}
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="misi">Misi Sekolah</label>
+                            <textarea class="form-control @error('misi') is-invalid @enderror" id="misi" name="misi" rows="5" placeholder="Tuliskan Misi sekolah di sini...">{{ old('misi', $profile->misi ?? '') }}</textarea>
+                            @error('misi')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        {{-- Deskripsi / Sejarah Sekolah --}}
+                        <div class="col-12 mb-4">
+                            <label class="form-label" for="deskripsi">Deskripsi / Sejarah Sekolah</label>
+                            <textarea class="form-control @error('deskripsi') is-invalid @enderror" id="deskripsi" name="deskripsi" rows="5" placeholder="Tuliskan sejarah singkat atau deskripsi sekolah...">{{ old('deskripsi', $profile->deskripsi ?? '') }}</textarea>
+                            @error('deskripsi')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
                         <div class="pt-2">
                             <button type="submit" class="btn btn-primary me-2">
                                 <i class="bx bx-save me-1"></i> Simpan Perubahan

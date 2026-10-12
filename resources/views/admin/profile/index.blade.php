@@ -13,7 +13,6 @@
         </div>
     @endif
 
-    <!-- Header Profil ala Sneat -->
     <div class="card mb-4">
         <div class="user-profile-header-banner" style="height: 180px; background: linear-gradient(135deg, #696cff 0%, #484ec4 100%);"></div>
         <div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4 px-4" style="margin-top: -45px;">
@@ -40,10 +39,8 @@
         </div>
     </div>
 
-    <!-- Detail Informasi Profil -->
     <div class="row">
         <div class="col-xl-4 col-lg-5 col-md-5 mb-4">
-            <!-- Foto Gedung Sekolah -->
             <div class="card mb-4">
                 <div class="card-header">
                     <h5 class="card-action-title mb-0"><i class="bx bx-image text-primary me-2"></i> Foto Sekolah</h5>
@@ -59,12 +56,10 @@
                 </div>
             </div>
 
-            <!-- Kartu Info Singkat -->
             <div class="card">
                 <div class="card-body">
                     <small class="text-muted uppercase fw-semibold d-block mb-3">INFORMASI UTAMA</small>
                     <ul class="list-unstyled mb-0">
-                        <!-- Kepala Sekolah + Foto -->
                         <li class="d-flex align-items-center mb-3">
                             @if(isset($profile->foto_kepala_sekolah) && $profile->foto_kepala_sekolah)
                                 <img src="{{ asset('storage/' . $profile->foto_kepala_sekolah) }}" alt="Kepala Sekolah" class="rounded-circle me-3 shadow-sm" style="width: 45px; height: 45px; object-fit: cover;" />
@@ -79,7 +74,6 @@
                             </div>
                         </li>
 
-                        <!-- Tahun Berdiri -->
                         <li class="d-flex align-items-center mb-3">
                             <div class="bg-label-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px;">
                                 <i class="bx bx-calendar text-primary fs-4"></i>
@@ -90,7 +84,6 @@
                             </div>
                         </li>
 
-                        <!-- Kontak -->
                         <li class="d-flex align-items-center mb-3">
                             <div class="bg-label-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px;">
                                 <i class="bx bx-phone text-primary fs-4"></i>
@@ -101,7 +94,6 @@
                             </div>
                         </li>
 
-                        <!-- Alamat -->
                         <li class="d-flex align-items-center">
                             <div class="bg-label-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px;">
                                 <i class="bx bx-map text-primary fs-4"></i>
@@ -116,21 +108,32 @@
             </div>
         </div>
 
-        <!-- Kolom Kanan: Visi Misi & Deskripsi -->
         <div class="col-xl-8 col-lg-7 col-md-7">
-            <!-- Visi & Misi -->
+            {{-- Card Visi --}}
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5 class="mb-0"><i class="bx bx-target-lock text-primary me-2"></i> Visi & Misi</h5>
+                    <h5 class="mb-0"><i class="bx bx-target-lock text-primary me-2"></i> Visi Sekolah</h5>
                 </div>
                 <div class="card-body">
                     <div class="text-dark" style="white-space: pre-line; word-break: break-word; line-height: 1.6;">
-                        {{ $profile->{'visi-misi'} ?? 'Belum diisi.' }}
+                        {{ $profile->visi ?? 'Belum diisi.' }}
                     </div>
                 </div>
             </div>
 
-            <!-- Deskripsi / Sejarah -->
+            {{-- Card Misi --}}
+            <div class="card mb-4">
+                <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5 class="mb-0"><i class="bx bx-list-check text-primary me-2"></i> Misi Sekolah</h5>
+                </div>
+                <div class="card-body">
+                    <div class="text-dark" style="white-space: pre-line; word-break: break-word; line-height: 1.6;">
+                        {{ $profile->misi ?? 'Belum diisi.' }}
+                    </div>
+                </div>
+            </div>
+
+            {{-- Card Deskripsi / Sejarah --}}
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-center justify-content-between">
                     <h5 class="mb-0"><i class="bx bx-book-open text-primary me-2"></i> Deskripsi / Sejarah Sekolah</h5>

@@ -8,10 +8,15 @@ use App\Models\Siswa;
 class SiswaController extends Controller
 {
     //
-    public function index() 
+   public function index()
     {
-        $siswas = Siswa::all();
-        return view('admin.siswa.index', compact('siswas'));
+        if (isset($_GET['search'])) {
+            $data['siswas'] = siswa::where('nama_siswa', 'like', '%' . $_GET['search'] . '%')->get();
+        } else {
+            $data['siswas'] = siswa::all();
+        }
+
+        return view('admin.siswa.index', $data);
     }
 
     public function store(Request $request) 
