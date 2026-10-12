@@ -3,87 +3,87 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Guru;
-use Illuminate\Support\Facades\Storage;
+use App\Models\guru;
+use App\Models\Mapel; // Jangan lupa use model Mapel
 
 class GuruController extends Controller
 {
-
-    public function index() 
+    // Menampilkan form tambah guru
+    public function create()
     {
-        $gurus = Guru::all();
+        $mapel = Mapel::all(); // Ambil semua data mata pelajaran dari database
+        return view('admin.guru.create', compact('mapel'));
+    }
+
+    public function index()
+    {
+       
+        $gurus = guru::with('mapel')->get(); 
         return view('admin.guru.index', compact('gurus'));
     }
 
+    // Menyimpan data guru baru
+   public function store(Request $request)
+{
+    $request->validate([
+        'nama_guru' => 'required|string|max:255',
+        'nip'       => 'required|numeric',
+        'mapel_id'  => 'required|exists:mapels,id', // Pastikan wajib diisi
+        'foto'      => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+    ]);
 
-    public function create() 
-    {
-        return view('admin.guru.create');
+    $input = $request->all();
+
+    if ($request->hasFile('foto')) {
+        $file = $request->file('foto');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('guru'), $filename);
+        $input['foto'] = $filename;
     }
 
-    public function store(Request $request) 
-    {
-        $request->validate([
-            'nip' => 'required|string|unique:gurus,nip',
-            'nama_guru' => 'required|string|max:50',
-            'mata_pelajaran' => 'required|string|max:50',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+    Guru::create($input); // Sekarang mapel_id akan terikut otomatis
 
-        $input = $request->all();
+    return redirect()->route('guru.index')->with('success', 'Data guru berhasil ditambahkan!');
+}
 
-        if ($request->hasFile('foto')) {
-            $input['foto'] = $request->file('foto')->store('guru', 'public');
-        }
-
-        Guru::create($input);
-
-        return redirect()->route('guru.index')->with('success', 'Data guru berhasil ditambahkan');
-    }
-
-  
+    // Menampilkan form edit guru
     public function edit($id)
     {
-        $guru = Guru::findOrFail($id);
-        return view('admin.guru.edit', compact('guru'));
-    } 
+        $guru = guru::findOrFail($id);
+        $mapel = Mapel::all(); // Ambil data mapel untuk dropdown
 
-   
-    public function update(Request $request, $id) 
+        return view('admin.guru.edit', compact('guru', 'mapel'));
+    }
+
+    // Update data guru
+   public function update(Request $request, $id)
     {
-        $guru = Guru::findOrFail($id);
+        $guru = guru::findOrFail($id);
 
         $request->validate([
-            'nip' => 'required|string|unique:gurus,nip,' . $id,
-            'nama_guru' => 'required|string|max:50',
-            'mata_pelajaran' => 'required|string|max:50',
-            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'nama_guru' => 'required|string|max:255',
+            'nip'       => 'required|numeric',
+            'mapel_id'  => 'required',
+            'foto'      => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $input = $request->all();
+        $input = $request->except('mapel_id');
+        $input['mata_pelajaran'] = $request->mapel_id; // Mapping mapel_id ke mata_pelajaran
 
         if ($request->hasFile('foto')) {
-            if ($guru->foto) {
-                Storage::delete('public/' . $guru->foto);
+            // Hapus foto lama jika ada
+            if ($guru->foto && file_exists(public_path('guru/' . $guru->foto))) {
+                unlink(public_path('guru/' . $guru->foto));
             }
-            $input['foto'] = $request->file('foto')->store('guru', 'public');
+
+            $file = $request->file('foto');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('guru'), $filename);
+            $input['foto'] = $filename;
         }
 
         $guru->update($input);
 
-        return redirect()->route('guru.index')->with('success', 'Data guru berhasil diubah');
+        return redirect()->route('guru.index')->with('success', 'Data guru berhasil diperbarui!');
     }
-
-    public function destroy($id) 
-    {
-        $guru = Guru::findOrFail($id);
-        if ($guru->foto) {
-            Storage::disk('public')->delete($guru->foto);
-        }
-
-        $guru->delete();
-
-        return redirect()->route('guru.index')->with('success', 'Data guru berhasil dihapus');
-    }
-
 }

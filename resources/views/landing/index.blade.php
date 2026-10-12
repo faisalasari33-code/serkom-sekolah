@@ -1,4 +1,3 @@
-
 @extends('template.landing')
 
 @section('title', ($profil->nama_sekolah ?? 'SDN 6 Mangunreja') . ' - Beranda')
@@ -17,7 +16,6 @@
     box-sizing: border-box;
 }
 
-/* HERO */
 .home-page .hero-wrapper {
     position: relative;
     width: 100%;
@@ -40,7 +38,6 @@
     top: 43%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: calc(100% - 36px);
     max-width: 820px;
 }
 
@@ -54,44 +51,6 @@
     overflow-wrap: anywhere;
 }
 
-.home-page .search-wrap {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 5px 6px 5px 18px;
-    background: white;
-    border-radius: 50px;
-    box-shadow: 0 8px 24px rgba(0,0,0,.16);
-}
-
-.home-page .search-input {
-    min-width: 0;
-    flex: 1;
-    border: 0;
-    outline: 0;
-    box-shadow: none !important;
-    font-size: 15px;
-    padding: 10px 4px;
-}
-
-.home-page .btn-cari-custom {
-    flex-shrink: 0;
-    background: var(--home-gold);
-    color: #1a2536;
-    border: 0;
-    border-radius: 40px;
-    padding: 10px 22px;
-    font-size: 14px;
-    font-weight: 700;
-    transition: background .2s;
-}
-
-.home-page .btn-cari-custom:hover {
-    background: #fb8500;
-    color: white;
-}
-
-/* STATISTIK */
 .home-page .stats-card-container {
     position: relative;
     margin-top: -48px;
@@ -126,7 +85,6 @@
     color: #e0e0e0;
 }
 
-/* UKURAN UMUM BAGIAN */
 .home-page .home-section {
     padding-top: 38px !important;
     padding-bottom: 38px !important;
@@ -163,12 +121,12 @@
     line-height: 1.8;
 }
 
-/* SAMBUTAN KEPALA SEKOLAH */
 .home-page .kepsek-photo {
-    width: 220px;
-    height: 285px;
+    width: 100%;
+    height: 350px;
     object-fit: cover;
-    display: block;
+    object-position: center top;
+    border-radius: 15px;
 }
 
 .home-page .kepsek-copy {
@@ -177,7 +135,6 @@
     line-height: 1.85;
 }
 
-/* BERITA */
 .home-page .news-section {
     background: #031b33;
 }
@@ -187,19 +144,12 @@
     border-radius: 14px;
     padding: 20px !important;
     max-width: 350px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Tambahkan ini untuk efek halus */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Efek saat kursor diarahkan ke card berita */
 .home-page .news-section .news-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
-}
-
-.home-page .news-card-title {
-    color: var(--home-blue);
-    font-size: 18px;
-    font-weight: 800;
 }
 
 .home-page .news-image {
@@ -208,7 +158,6 @@
     object-fit: cover;
 }
 
-/* GALERI */
 .home-page .gallery-card,
 .home-page .eskul-card,
 .home-page .guru-card {
@@ -228,19 +177,13 @@
     object-fit: cover;
 }
 
-.home-page .gallery-title {
-    font-size: 13px;
-    line-height: 1.5;
-}
-
-/* EKSTRAKURIKULER */
 .home-page .eskul-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Tambahkan ini */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .home-page .eskul-card:hover {
-    transform: translateY(-6px); /* Efek card terangkat ke atas */
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2); /* Efek bayangan */
+    transform: translateY(-6px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
 }
 
 .home-page .eskul-image-wrap {
@@ -254,13 +197,6 @@
     height: 100%;
     object-fit: cover;
     transition: transform .3s ease;
-}
-
-.home-page .eskul-card:hover{
-    transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(239, 239, 239, 0.923);
-
-
 }
 
 .home-page .eskul-card .card-body {
@@ -278,7 +214,6 @@
     overflow: hidden;
 }
 
-/* SECTION GURU & STAF */
 .staff-section {
     padding: 40px 0 35px;
     background: #fff;
@@ -369,7 +304,6 @@
     display: none;
 }
 
-/* CARD & HOVER EFFECT */
 .staff-section .staff-card {
     min-width: 0;
     background: #fff;
@@ -389,7 +323,7 @@
 .staff-section .staff-photo {
     display: block;
     width: 100%;
-    height: 270px;
+    height: 380px;
     object-fit: cover;
     object-position: center top;
     transition: transform 0.4s ease;
@@ -416,14 +350,12 @@
     margin-bottom: 0;
 }
 
-/* RESPONSIVE MEDIA QUERIES */
 @media (max-width: 991px) {
     .staff-section .staff-track {
         grid-auto-columns: calc((100% - 16px) / 2);
     }
-
     .staff-section .staff-photo {
-        height: 240px;
+        height: 320px;
     }
 }
 
@@ -431,41 +363,28 @@
     .staff-section {
         padding: 30px 0 25px;
     }
-
     .staff-section .staff-heading {
         font-size: 24px;
     }
-
     .staff-section .staff-label {
         font-size: 11px;
     }
-
     .staff-section .staff-description {
         font-size: 13px;
     }
-
     .staff-section .staff-track {
         grid-auto-columns: 75%;
         gap: 12px;
     }
-
     .staff-section .staff-photo {
-        height: 230px;
+        height: 300px;
     }
-
     .staff-section .staff-name {
         font-size: 14px;
     }
-
     .staff-section .staff-role {
         font-size: 12px;
     }
-}
-
-/* PERBAIKAN GALERI SEKOLAH */
-.home-page  {
-    padding: 35px 0 !important;
-    background: #f1f6fa !important;
 }
 
 .home-page .gallery-subtitle {
@@ -481,7 +400,7 @@
     font-weight: 800;
 }
 
-.home-page  .gallery-line {
+.home-page .gallery-line {
     width: 220px;
     height: 3px;
     margin-top: 8px;
@@ -489,14 +408,14 @@
     background: linear-gradient(to right, #e99b22, transparent);
 }
 
-.home-page  .gallery-description {
+.home-page .gallery-description {
     color: #26364a;
     font-size: 13px;
     line-height: 1.6;
     margin-top: 12px;
 }
 
-.home-page  .gallery-button {
+.home-page .gallery-button {
     display: inline-flex;
     align-items: center;
     gap: 7px;
@@ -509,11 +428,11 @@
     white-space: nowrap;
 }
 
-.home-page  .gallery-button:hover {
+.home-page .gallery-button:hover {
     background: #064a87;
 }
 
-.home-page  .gallery-card {
+.home-page .gallery-card {
     height: 100%;
     overflow: hidden;
     background: white;
@@ -521,34 +440,25 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, .05);
 }
 
-.home-page  .gallery-image-wrap {
+.home-page .gallery-image-wrap {
     position: relative;
     width: 100%;
     height: 190px;
     overflow: hidden;
 }
 
-.home-page  .gallery-image {
+.home-page .gallery-image {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.home-page  .gallery-count {
-    position: absolute;
-    left: 10px;
-    bottom: 8px;
-    color: white;
-    font-size: 11px;
-    text-shadow: 0 1px 3px #000;
-}
-
-.home-page  .gallery-card-body {
+.home-page .gallery-card-body {
     padding: 12px 14px;
 }
 
-.home-page  .gallery-card-body h6 {
+.home-page .gallery-card-body h6 {
     margin: 0;
     color: #333;
     font-size: 14px;
@@ -557,41 +467,24 @@
 }
 
 @media (max-width: 767px) {
-    .home-page  {
-        padding: 25px 0 !important;
-    }
-
-    .home-page  .gallery-heading {
+    .home-page .gallery-heading {
         font-size: 22px;
     }
-
-    .home-page  .gallery-description {
+    .home-page .gallery-description {
         font-size: 12px;
     }
-
-    .home-page  .gallery-image-wrap {
+    .home-page .gallery-image-wrap {
         height: 180px;
     }
-
-    .home-page  .gallery-card-body h6 {
+    .home-page .gallery-card-body h6 {
         font-size: 13px;
     }
 }
 
-
-/* PERBAIKAN SAMBUTAN KEPALA SEKOLAH */
 .home-page .kepsek-layout {
     display: flex;
     align-items: center;
     gap: 35px;
-}
-
-.home-page .kepsek-photo {
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
-    object-position: center top;
-    border-radius: 15px;
 }
 
 .home-page .section-heading {
@@ -609,61 +502,40 @@
         align-items: stretch;
         gap: 20px;
     }
-
     .home-page .kepsek-layout > .flex-shrink-0 {
         flex: none;
         width: 100%;
     }
-
     .home-page .kepsek-photo {
         width: 100%;
         max-width: 280px;
         height: 350px;
         margin: 0 auto;
     }
-
     .home-page .section-heading {
         font-size: 25px;
     }
-
     .home-page .kepsek-copy {
         font-size: 14px;
     }
 }
-
-
 </style>
 @endpush
+
 @section('content')
 <div class="home-page">
     <div class="hero-wrapper p-0 m-0">
-        <img
-            src="{{ asset('assets/img/backgrounds/ss.png') }}"
-            class="hero-background"
-            alt="Gedung Sekolah"
-        >
+        <img src="{{ asset('assets/img/backgrounds/ss.png') }}" class="hero-background" alt="Gedung Sekolah">
         <div class="hero-overlay-container text-center text-white">
             <h1 class="hero-title mb-3 text-uppercase">
                 {{ $profil->nama_sekolah }}
             </h1>
-
-            <form action="#" method="GET">
-                <div class="search-wrap">
-                    <input
-                        type="text"
-                        name="cari"
-                        class="form-control search-input"
-                        placeholder="Apa yang ingin anda cari?"
-                    >
-                    <button class="btn-cari-custom" type="submit">
-                        Cari
-                    </button>
-                </div>
-            </form>
+            <p class="lead mt-2 fs-5 fs-md-4" style="font-size: 15px; font-weight: bold;">
+                Mendidik dengan Hati untuk Membentuk Generasi Cerdas, Berkarakter Kuat, dan Siap Menghadapi Tantangan Masa Depan
+            </p>
         </div>
     </div>
 
-    {{-- STATISTIK --}}
     <div class="container stats-card-container">
         <div class="stats-box text-white w-100">
             <div class="row text-center align-items-center g-0">
@@ -695,7 +567,7 @@
             </div>
         </div>
     </div>
-    {{-- SAMBUTAN KEPALA SEKOLAH --}}
+
     <section class="home-section bg-white">
         <div class="container">
             <div class="kepsek-layout">
@@ -731,82 +603,74 @@
             </div>
         </div>
     </section>
-   {{-- BERITA --}}
-<section id="berita" class="news-section home-section py-5">
-    <div class="container-xxl flex-grow-1 container-p-y">
-        <div class="text-center mb-5">
-            <span
-                class="badge px-3 py-2 rounded-pill fw-semibold mb-2"
-                style="background:rgba(217,119,6,.15);color:#f59e0b;border:1px solid rgba(245,158,11,.3);font-size:10px;letter-spacing:1px;">
-                BERITA KEGIATAN SEKOLAH
-            </span>
-            <h2 class="fw-bold text-white mb-2" style="font-size:26px;">
-                Berita Terbaru
-            </h2>
-            <div class="section-line mx-auto mb-3" style="width: 50px; height: 3px; background-color: #f59e0b;"></div>
-            <p class="text-white-50 mx-auto section-copy" style="max-width:600px;">
-                Dapatkan informasi terbaru mengenai kegiatan, pengumuman,
-                dan prestasi civitas akademika SDN 6 Mangunreja.
-            </p>
-        </div>
 
-        {{-- Baris Card Berita --}}
-        <div class="row justify-content-center g-4 align-items-stretch px-2 px-md-4" style="margin-left: auto; margin-right: auto;">
-            @forelse($berita as $item)
-                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
-                    <div class="card news-card border-0 shadow-sm w-100 h-100 d-flex flex-column p-4 bg-white rounded-4">
-                        {{-- Foto Berita --}}
-                        @if(!empty($item->foto))
-                            <img
-                                src="{{ asset('storage/' . $item->foto) }}"
-                                class="news-image rounded-3 mb-3 w-100"
-                                style="height: 200px; object-fit: cover;"
-                                alt="Berita"
-                                onerror="this.src='{{ asset('assets/img/avatars/bangwil.jpeg') }}'">
-                        @endif
+    <section id="berita" class="news-section home-section py-5">
+        <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="text-center mb-5">
+                <span
+                    class="badge px-3 py-2 rounded-pill fw-semibold mb-2"
+                    style="background:rgba(217,119,6,.15);color:#f59e0b;border:1px solid rgba(245,158,11,.3);font-size:10px;letter-spacing:1px;">
+                    BERITA KEGIATAN SEKOLAH
+                </span>
+                <h2 class="fw-bold text-white mb-2" style="font-size:26px;">
+                    Berita Terbaru
+                </h2>
+                <div class="section-line mx-auto mb-3" style="width: 50px; height: 3px; background-color: #f59e0b;"></div>
+                <p class="text-white-50 mx-auto section-copy" style="max-width:600px;">
+                    Dapatkan informasi terbaru mengenai kegiatan, pengumuman, dan prestasi civitas akademika SDN 6 Mangunreja.
+                </p>
+            </div>
 
-                        {{-- Judul Berita --}}
-                        <h5 class="fw-bold text-dark lh-base mb-2" style="font-size:16px;">
-                            {{ $item->judul }}
-                        </h5>
+            <div class="row justify-content-center g-4 align-items-stretch px-2 px-md-4" style="margin-left: auto; margin-right: auto;">
+                @forelse($berita as $item)
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                        <div class="card news-card border-0 shadow-sm w-100 h-100 d-flex flex-column p-4 bg-white rounded-4">
+                            @if(!empty($item->foto))
+                                <img
+                                    src="{{ asset('storage/' . $item->foto) }}"
+                                    class="news-image rounded-3 mb-3 w-100"
+                                    style="height: 200px; object-fit: cover;"
+                                    alt="Berita"
+                                    onerror="this.src='{{ asset('assets/img/avatars/bangwil.jpeg') }}'">
+                            @endif
 
-                        {{-- Tanggal Berita --}}
-                        <p class="text-muted small mb-3" style="font-size:12px;">
-                            {{ \Carbon\Carbon::parse($item->tanggal ?? $item->created_at)->translatedFormat('l, d F Y') }}
-                        </p>
+                            <h5 class="fw-bold text-dark lh-base mb-2" style="font-size:16px;">
+                                {{ $item->judul }}
+                            </h5>
 
-                        {{-- Deskripsi Singkat --}}
-                        <p class="text-secondary small lh-sm mb-4 flex-grow-1" style="font-size:13px;">
-                            {{ \Illuminate\Support\Str::limit(strip_tags($item->isi), 100) }}
-                        </p>
+                            <p class="text-muted small mb-3" style="font-size:12px;">
+                                {{ \Carbon\Carbon::parse($item->tanggal)->translatedFormat('l, d F Y') }}
+                            </p>
 
-                        {{-- Tombol Selengkapnya --}}
-                        <div class="mt-auto pt-2">
-                            <a href="{{ route('landing.berita') }}"
-                               class="small text-decoration-underline text-primary fw-semibold">
-                                Selengkapnya »
-                            </a>
+                            <p class="text-secondary small lh-sm mb-4 flex-grow-1" style="font-size:13px;">
+                                {{ \Illuminate\Support\Str::limit(strip_tags($item->isi), 100) }}
+                            </p>
+
+                            <div class="mt-auto pt-2">
+                                <a href="{{ route('landing.berita') }}"
+                                class="small text-decoration-underline text-primary fw-semibold">
+                                    Selengkapnya »
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @empty
-                <div class="col-12 text-center">
-                    <p class="text-white-50 small">Belum ada berita terbaru.</p>
-                </div>
-            @endforelse
-        </div>
+                @empty
+                    <div class="col-12 text-center">
+                        <p class="text-white-50 small">Belum ada berita terbaru.</p>
+                    </div>
+                @endforelse
+            </div>
 
-        {{-- Link Lihat Semua Berita di Bawah --}}
-        <div class="text-center mt-5">
-            <a href="{{ route('landing.berita') }}"
-               class="text-white text-decoration-none fw-semibold" style="font-size: 14px;">
-                » Lihat Semua Berita
-            </a>
+            <div class="text-center mt-5">
+                <a href="{{ route('landing.berita') }}"
+                class="text-white text-decoration-none fw-semibold" style="font-size: 14px;">
+                    » Lihat Semua Berita
+                </a>
+            </div>
         </div>
-    </div>
-</section>
-   {{-- GALERI SEKOLAH --}}
-    <section id="galeri" class="home-section gallery-section">
+    </section>
+
+    <section id="galeri" class="home-section gallery-section py-5 bg-light">
         <div class="container">
             <div class="d-flex justify-content-between align-items-end mb-3 gap-3">
                 <div>
@@ -830,13 +694,11 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="gallery-card h-100">
                             <div class="gallery-image-wrap" style="height: 200px; overflow: hidden; background: #000; position: relative;">
-
                                 @if(!empty($item->video))
                                     <video class="w-100 h-100" style="object-fit: cover;" controls>
                                         <source src="{{ asset('storage/' . $item->video) }}" type="video/mp4">
                                         Browser Anda tidak mendukung tag video.
                                     </video>
-
                                 @elseif(!empty($item->foto))
                                     <img 
                                         src="{{ asset('storage/' . $item->foto) }}" 
@@ -844,7 +706,6 @@
                                         style="object-fit: cover;" 
                                         alt="{{ $item->judul }}"
                                     >
-                                
                                 @else
                                     <img 
                                         src="{{ asset('assets/img/avatars/logo.jpg') }}" 
@@ -867,7 +728,7 @@
             </div>
         </div>
     </section>
-    {{-- EKSTRAKURIKULER --}}
+
     <section id="ekstrakurikuler" class="home-section position-relative"
              style="background:linear-gradient(135deg,#021526 0%,#031b33 50%,#082846 100%);">
         <div class="container position-relative">
@@ -882,8 +743,7 @@
                 </h2>
                 <div class="section-line mx-auto"></div>
                 <p class="text-white-50 section-copy mx-auto" style="max-width:600px;">
-                    Mengembangkan potensi, minat, dan bakat siswa melalui
-                    berbagai pilihan kegiatan ekstrakurikuler.
+                    Mengembangkan potensi, minat, dan bakat siswa melalui berbagai pilihan kegiatan ekstrakurikuler.
                 </p>
             </div>
             <div class="row g-3 justify-content-center">
@@ -930,111 +790,107 @@
                     </div>
                 @endforelse
             </div>
-              <div class="text-center mt-3">
-                    <a href="{{ route('landing.eskul') }}"
-                         class="text-white text-decoration-none fw-semibold" style="font-size: 14px;">
-                        » Lihat Semua Ekstrakulikuler
-                    </a>
-               </div>
+            <div class="text-center mt-3">
+                <a href="{{ route('landing.eskul') }}"
+                   class="text-white text-decoration-none fw-semibold" style="font-size: 14px;">
+                    » Lihat Semua Ekstrakulikuler
+                </a>
+           </div>
         </div>
     </section>
-   
-        <section class="staff-section">
-            <div class="container">
 
-                {{-- Judul section --}}
-                <div class="d-flex justify-content-between align-items-center gap-3 staff-header">
-                    <div>
-                        <p class="staff-label">TENAGA PENDIDIK PROFESIONAL</p>
-                        <h2 class="staff-heading">Guru &amp; Staf Berkualitas</h2>
-                        <div class="staff-line"></div>
-                    </div>
-
-                    <a href="{{ route('landing.guru') }}" class="staff-more">
-                        <span style="font-size:22px;line-height:1">›</span>
-                        Lihat Semua
-                    </a>
+    <section class="staff-section">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center gap-3 staff-header">
+                <div>
+                    <p class="staff-label">TENAGA PENDIDIK PROFESIONAL</p>
+                    <h2 class="staff-heading">Guru &amp; Staf Berkualitas</h2>
+                    <div class="staff-line"></div>
                 </div>
 
-                <p class="staff-description">
-                    Guru dan staf kami terdiri dari tenaga profesional yang kompeten,
-                    berpengalaman, dan berdedikasi tinggi dalam memberikan layanan
-                    pendidikan berkualitas. Dengan pendekatan pembelajaran yang inovatif
-                    dan berorientasi pada kebutuhan siswa, kami berkomitmen menciptakan
-                    lingkungan belajar yang inspiratif dan produktif.
-                </p>
-
-                {{-- Tombol carousel --}}
-                <div class="staff-controls">
-                    <button type="button" class="staff-arrow" id="staffPrev" aria-label="Sebelumnya">
-                        &#8249;
-                    </button>
-                    <button type="button" class="staff-arrow" id="staffNext" aria-label="Berikutnya">
-                        &#8250;
-                    </button>
-                </div>
-
-                {{-- Daftar guru --}}
-                <div class="staff-carousel">
-                    <div class="staff-track" id="staffTrack">
-
-                        @forelse($guru as $g)
-                            <article class="staff-card">
-
-                                <img
-                                    src="{{ !empty($g->foto)
-                                        ? asset('storage/' . $g->foto)
-                                        : asset('assets/img/avatars/bangwil.jpeg') }}"
-                                    class="staff-photo"
-                                    alt="{{ $g->nama_guru ?? $g->nama_lengkap ?? $g->nama ?? 'Guru' }}"
-                                    loading="lazy"
-                                    onerror="this.onerror=null;this.src='{{ asset('assets/img/avatars/bangwil.jpeg') }}';"
-                                >
-
-                                <div class="staff-card-body">
-                                    <h3 class="staff-name">
-                                        {{ $g->nama_guru ?? $g->nama_lengkap ?? $g->nama ?? $g->nama_staf ?? '-' }}
-                                    </h3>
-
-                                    <p class="staff-role">
-                                        {{ $g->mapel ?? $g->mata_pelajaran ?? $g->jabatan ?? '-' }}
-                                    </p>
-                                </div>
-
-                            </article>
-                        @empty
-                            <div class="py-4 text-muted">
-                                Belum ada data guru dan staf.
-                            </div>
-                        @endforelse
-
-                    </div>
-                </div>
-
+                <a href="{{ route('landing.guru') }}" class="staff-more">
+                    <span style="font-size:22px;line-height:1">›</span>
+                    Lihat Semua
+                </a>
             </div>
-        </section>
+            <p class="staff-description">
+                Guru dan staf kami terdiri dari tenaga profesional yang kompeten, berpengalaman, dan berdedikasi tinggi dalam memberikan layanan pendidikan berkualitas. Dengan pendekatan pembelajaran yang inovatif dan berorientasi pada kebutuhan siswa, kami berkomitmen menciptakan lingkungan belajar yang inspiratif dan produktif.
+            </p>
+
+            <div class="staff-controls">
+                <button type="button" class="staff-arrow" id="staffPrev" aria-label="Sebelumnya">
+                    &#8249;
+                </button>
+                <button type="button" class="staff-arrow" id="staffNext" aria-label="Berikutnya">
+                    &#8250;
+                </button>
+            </div>
+
+            <div class="staff-carousel">
+                <div class="staff-track" id="staffTrack">
+                    @forelse($guru as $g)
+                        <article class="staff-card">
+                            <img
+                                src="{{ !empty($g->foto) ? asset('guru/' . $g->foto) : asset('assets/img/avatars/bangwil.jpeg') }}"
+                                class="staff-photo"
+                                alt="{{ $g->nama_guru ?? $g->nama_lengkap ?? $g->nama ?? 'Guru' }}"
+                                loading="lazy"
+                                onerror="this.onerror=null;this.src='{{ asset('assets/img/avatars/bangwil.jpeg') }}';"
+                            >
+                            <div class="staff-card-body">
+                                <h3 class="staff-name">
+                                    {{ $g->nama_guru ?? $g->nama_lengkap ?? '-' }}
+                                </h3>
+                                <p class="staff-role">
+                                    {{ $g->mapel ? $g->mapel->nama_mapel : '-' }}
+                                </p>
+                            </div>
+                        </article>
+                    @empty
+                        <div class="py-4 text-muted">
+                            Belum ada data guru dan staf.
+                        </div>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const track = document.getElementById("staffTrack");
-        const prevBtn = document.getElementById("staffPrev");
-        const nextBtn = document.getElementById("staffNext");
 
-        if (track && prevBtn && nextBtn) {
-            nextBtn.addEventListener("click", function () {
-                track.scrollBy({
-                    left: track.clientWidth,
-                    behavior: "smooth"
-                });
-            });
-
-            prevBtn.addEventListener("click", function () {
-                track.scrollBy({
-                    left: -track.clientWidth,
-                    behavior: "smooth"
-                });
-            });
-        }
-    });
-</script>
+<section class="py-5 bg-light" id="siswa">
+   <div class="container">
+       <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped align-middle mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col" style="width: 5%;">No</th>
+                                <th scope="col">NISN</th>
+                                <th scope="col">Nama Siswa</th>
+                                <th scope="col">Jenis Kelamin</th>
+                                <th scope="col">Tanggal Masuk</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($siswa as $index => $item)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $item->nisn ?? '-' }}</td>
+                                    <td class="fw-semibold">{{ $item->nama_siswa ?? '-' }}</td>
+                                    <td>{{ $item->jenis_kelamin ?? '-' }}</td>
+                                    <td>{{ $item->tanggal_masuk ? \Carbon\Carbon::parse($item->tanggal_masuk)->format('d-m-Y') : '-' }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted py-4">Data siswa tidak ditemukan.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+       </div>
+   </div>
+</section>
 @endsection

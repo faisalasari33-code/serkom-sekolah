@@ -32,11 +32,12 @@ class LandingController extends Controller
 
     public function index()
     {
-        $profil          = $this->getProfile();
-        $berita          = berita::latest('tanggal')->take(3)->get();
+        $profil = $this->getProfile();
+        $berita = berita::latest('tanggal')->take(3)->get();
         $ekstrakurikuler = ekstrakurikuler::all();
-        $galeri          = galeri::where('status', 'publish')->latest()->take(6)->get();
-        $guru            = guru::all();
+        $galeri  = galeri::where('status', 'publish')->latest()->take(3)->get();
+        $guru  = guru::all();
+        $siswa = siswa::latest()->take(3)->get();
 
         $totalSiswa = class_exists(siswa::class) ? siswa::count() : 0;
         $totalGuru  = guru::count();
@@ -48,6 +49,7 @@ class LandingController extends Controller
             'ekstrakurikuler', 
             'galeri', 
             'guru',
+            'siswa',
             'totalSiswa',
             'totalGuru',
             'totalEskul'
@@ -76,6 +78,14 @@ class LandingController extends Controller
         $galeris = galeri::where('status', 'publish')->latest()->take(5)->get();
 
         return view('landing.berita', compact('berita', 'profil', 'galeris'));
+    }
+
+  public function siswaIndex()
+    {
+        $profil = $this->getProfile(); // Tambahkan ini agar tidak error di template
+        $siswa = siswa::all();
+
+        return view('landing.siswa', compact('siswa', 'profil'));
     }
 
     public function galeriIndex(Request $request)

@@ -24,7 +24,7 @@
             position: relative;
         }
 
-        /* Banner Atas dengan Gradasi Transparan ke Bawah */
+
         .login-top-bg {
             height: 250px; 
             width: 100%;
@@ -134,7 +134,7 @@
                 <form action="{{ route('auth') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label class="form-label">USERNAME / EMAIL</label>
+                        <label class="form-label">USERNAME</label>
                         <input type="text" name="username" class="form-control" autocomplete="off" placeholder="Masukkan username..." required autofocus>
                     </div>
 

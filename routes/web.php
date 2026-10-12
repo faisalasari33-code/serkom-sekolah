@@ -11,6 +11,8 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\EkstrakurikulerController;
+use App\Http\Controllers\ProfileSoloController;
+
 
 // ==========================================
 // ROUTE PUBLIK / LANDING PAGE (TANPA AUTH)
@@ -19,13 +21,14 @@ Route::get('/', [LandingController::class, 'index'])->name('home');
 Route::get('/berita-sekolah', [LandingController::class, 'beritaIndex'])->name('landing.berita');
 Route::get('/galeri-sekolah', [LandingController::class, 'galeriIndex'])->name('landing.galeri');
 Route::get('/eskul-sekolah', [LandingController::class, 'eskulIndex'])->name('landing.eskul');
-Route::get('/guru-staf', [LandingController::class, 'guruIndex'])->name('landing.guru');
 Route::get('/profil-sekolah', [LandingController::class, 'profilIndex'])->name('landing.profil');
+Route::get('/guru-staf', [LandingController::class, 'guruIndex'])->name('landing.guru');
+Route::get('/siswa', [LandingController::class, 'siswaIndex'])->name('landing.siswa');
 
 Route::get('/berita-sekolah/{id}', [LandingController::class, 'beritaDetail'])->name('landing.berita.detail');
 Route::get('/guru-staf/{id}', [LandingController::class, 'guruDetail'])->name('landing.guru.detail');
 Route::get('/eskul-sekolah/{id}', [LandingController::class, 'eskulDetail'])->name('landing.eskul.detail');
-Route::get('/galeri-sekolah', [LandingController::class, 'galeriDetail'])->name('landing.galeri');
+Route::get('/galeri-sekolah', [LandingController::class, 'galeriDetail'])->name('landing.galeri'); // Opsional, bisa diarahkan ke galeriIndex jika sama
 Route::get('/galeri-sekolah/{id}', [LandingController::class, 'galeriDetail'])->name('landing.galeri.detail');
 
 // AUTHENTICATION
@@ -46,20 +49,27 @@ Route::middleware('checkauth')->group(function() {
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
-    Route::get('siswa', [SiswaController::class, 'index'])->name('siswa.index');
+    // CRUD Siswa Admin
+    Route::get('/siswa', [SiswaController::class, 'index'])->name('siswa.index');
     Route::post('/siswa/store', [SiswaController::class, 'store'])->name('siswa.store');
     Route::put('/siswa/{id}', [SiswaController::class, 'update'])->name('siswa.update');
     Route::get('/siswa/create', [SiswaController::class, 'create'])->name('siswa.create');
     Route::get('/siswa/{id}/edit', [SiswaController::class, 'edit'])->name('siswa.edit');
     Route::delete('/siswa/{id}', [SiswaController::class, 'destroy'])->name('siswa.destroy');
 
-    Route::get('/guru', [GuruController::class, 'index'])->name('guru.index');
-    Route::get('/guru/create', [GuruController::class, 'create'])->name('guru.create');
-    Route::post('/guru', [GuruController::class, 'store'])->name('guru.store');
-    Route::get('/guru/{id}/edit', [GuruController::class, 'edit'])->name('guru.edit');
-    Route::put('/guru/{id}', [GuruController::class, 'update'])->name('guru.update');
-    Route::delete('/guru/{id}', [GuruController::class, 'destroy'])->name('guru.destroy');
+    // CRUD Guru Admin (Duplikasi sudah dibersihkan)
+    Route::get('/admin/guru', [GuruController::class, 'index'])->name('guru.index');
+    Route::get('/admin/guru/create', [GuruController::class, 'create'])->name('guru.create');
+    Route::post('/admin/guru', [GuruController::class, 'store'])->name('guru.store');
+    Route::get('/admin/guru/{id}/edit', [GuruController::class, 'edit'])->name('guru.edit');
+    Route::put('/admin/guru/{id}', [GuruController::class, 'update'])->name('guru.update');
+    Route::delete('/admin/guru/{id}', [GuruController::class, 'destroy'])->name('guru.destroy');
 
+
+    // Rute untuk Profil Solo
+    Route::get('/profil-saya', [ProfileSoloController::class, 'index'])->name('profile.solo');
+
+    // CRUD Berita Admin
     Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
     Route::get('/berita/tambah', [BeritaController::class, 'create'])->name('berita.create');
     Route::post('/berita/simpan', [BeritaController::class, 'store'])->name('berita.store');
@@ -67,6 +77,7 @@ Route::middleware('checkauth')->group(function() {
     Route::put('/berita/update/{id}', [BeritaController::class, 'update'])->name('berita.update');
     Route::delete('/berita/hapus/{id}', [BeritaController::class, 'destroy'])->name('berita.destroy');
 
+    // CRUD Galeri Admin
     Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');
     Route::get('/galeri/tambah', [GaleriController::class, 'create'])->name('galeri.create');
     Route::post('/galeri/simpan', [GaleriController::class, 'store'])->name('galeri.store');
@@ -74,13 +85,15 @@ Route::middleware('checkauth')->group(function() {
     Route::put('/galeri/update/{id}', [GaleriController::class, 'update'])->name('galeri.update');
     Route::delete('/galeri/hapus/{id}', [GaleriController::class, 'destroy'])->name('galeri.destroy');
 
+    // CRUD Ekstrakurikuler Admin
     Route::get('/ekstrakulikuler', [EkstrakurikulerController::class, 'index'])->name('ekstrakulikuler.index');
-    Route::get('/ekstrakulikuler/create', [EkstrakurikulerController::class, 'create'])->name('ekstrakurikuler.create');
-    Route::post('/ekstrakulikuler', [EkstrakurikulerController::class, 'store'])->name('ekstrakurikuler.store');
-    Route::get('/ekstrakulikuler/{id}/edit', [EkstrakurikulerController::class, 'edit'])->name('ekstrakurikuler.edit');
-    Route::put('/ekstrakulikuler/{id}', [EkstrakurikulerController::class, 'update'])->name('ekstrakurikuler.update');
-    Route::delete('/ekstrakulikuler/{id}', [EkstrakurikulerController::class, 'destroy'])->name('ekstrakurikuler.destroy');
+    Route::get('/ekstrakulikuler/create', [EkstrakurikulerController::class, 'create'])->name('ekstrakulikuler.create');
+    Route::post('/ekstrakulikuler', [EkstrakurikulerController::class, 'store'])->name('ekstrakulikuler.store');
+    Route::get('/ekstrakulikuler/{id}/edit', [EkstrakurikulerController::class, 'edit'])->name('ekstrakulikuler.edit');
+    Route::put('/ekstrakulikuler/{id}', [EkstrakurikulerController::class, 'update'])->name('ekstrakulikuler.update');
+    Route::delete('/ekstrakulikuler/{id}', [EkstrakurikulerController::class, 'destroy'])->name('ekstrakulikuler.destroy');
 
+    // Profil Sekolah Admin
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/profile-sekolah/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile-sekolah/update', [ProfileController::class, 'update'])->name('profile.update');

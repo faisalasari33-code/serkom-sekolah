@@ -45,8 +45,8 @@ class ProfileController extends Controller
             'alamat' => $request->alamat,
             'kontak' => $request->kontak,
             'npsn' => $request->npsn,
-            'visi' => $request->visi,     // Simpan ke kolom visi
-            'misi' => $request->misi,     // Simpan ke kolom misi
+            'visi' => $request->visi,  
+            'misi' => $request->misi,    
             'tahun_berdiri'=> $request->tahun_berdiri,
             'deskripsi' => $request->deskripsi,
         ];
@@ -80,4 +80,6 @@ class ProfileController extends Controller
 
         return redirect()->route('profile.index')->with('success', 'Profil sekolah berhasil diperbarui!');
     }
+
+    
 }

@@ -20,11 +20,20 @@
                 <input type="text" class="form-control @error('nama_guru') is-invalid @enderror" id="nama_guru" name="nama_guru" required />
             </div>
 
-            <div class="mb-3">
-                <label class="form-label" for="mata_pelajaran">Mata Pelajaran</label>
-                <input type="text" class="form-control @error('mata_pelajaran') is-invalid @enderror" id="mata_pelajaran" name="mata_pelajaran" required />
+                    <div class="mb-3">
+                <label class="form-label" for="mapel_id">Mata Pelajaran</label>
+                <select name="mapel_id" id="mapel_id" class="form-select @error('mapel_id') is-invalid @enderror" required>
+                    <option value="">-- Pilih Mata Pelajaran --</option>
+                    @foreach($mapel as $m)
+                        <option value="{{ $m->id }}" {{ old('mapel_id') == $m->id ? 'selected' : '' }}>
+                            {{ $m->nama_mapel }}
+                        </option>
+                    @endforeach
+                </select>
+                @error('mapel_id')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
-
             <div class="mb-3">
                 <label class="form-label" for="foto">Foto Guru</label>
                 <input type="file" class="form-control @error('foto') is-invalid @enderror" id="foto" name="foto" />

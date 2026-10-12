@@ -278,12 +278,11 @@
         <div class="berita-grid">
             @forelse($berita as $item)
                 <div class="berita-card">
-                    {{-- GAMBAR BERITA --}}
                     <div class="berita-img-wrapper">
                         <a href="{{ url('/berita-sekolah/' . $item->id_berita) }}" style="display:block; width:100%; height:100%;">
-                            @if(!empty($item->foto ?? $item->gambar))
+                            @if(!empty($item->foto))
                                 <img
-                                    src="{{ asset('storage/' . ($item->foto ?? $item->gambar)) }}"
+                                    src="{{ asset('storage/' . ($item->foto)) }}"
                                     alt="{{ $item->judul }}"
                                     class="berita-img"
                                     onerror="this.onerror=null;this.src='{{ asset('assets/img/default-news.jpg') }}';"

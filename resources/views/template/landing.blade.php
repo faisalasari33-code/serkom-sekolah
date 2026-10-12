@@ -193,6 +193,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('landing.guru')}}">Guru &amp; Staf</a>
                     </li>
+                    <!-- Menu Profil Sekolah / Profil di Samping Siswa -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/#siswa">Siswa</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('profile.solo')}}">Profil</a>
+                    </li>
+                    
                 </ul>
             </div>
         </div>
@@ -263,6 +272,13 @@
                             <a href="{{ url('/#guru') }}" class="text-white-50 text-decoration-none hover-white">
                                 <i class="fa-solid fa-chevron-right me-1" style="font-size: 10px;"></i>
                                 Guru &amp; Staf
+                            </a>
+                        </li>
+
+                           <li>
+                            <a href="{{ url('/#siswa') }}" class="text-white-50 text-decoration-none hover-white">
+                                <i class="fa-solid fa-chevron-right me-1" style="font-size: 10px;"></i>
+                                Siswa
                             </a>
                         </li>
                     </ul>

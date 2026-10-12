@@ -4,15 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class guru extends Model
+class Guru extends Model
 {
-    //
     protected $table = 'gurus';
 
     protected $fillable = [
-        'nama_guru',
         'nip',
-        'mata_pelajaran',
+        'nama_guru',
+        'mapel_id', // <-- WAJIB TAMBAHKAN INI!
         'foto',
     ];
+
+    public function mapel()
+    {
+        return $this->belongsTo(Mapel::class, 'mapel_id', 'id');
+    }
 }

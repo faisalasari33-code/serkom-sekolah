@@ -59,47 +59,49 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($gurus as $index => $guru)
-                          <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>
-                                @if($guru->foto)
-                                    <!-- Menampilkan foto dari storage -->
-                                    <img src="{{ asset('storage/' . $guru->foto) }}" alt="Foto Guru" width="40" height="40" class="rounded-circle object-fit-cover">
-                                @else
-                                    <span class="badge bg-label-secondary">Tidak ada foto</span>
-                                @endif
-                            </td>
-                            <td>{{ $guru->nip }}</td>
-                            <td>{{ $guru->nama_guru }}</td>
-                            <td>{{ $guru->mata_pelajaran }}</td>
-                            <td class="text-center">
-                               <div class="dropdown">
-                                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                         <i class="bx bx-dots-vertical-rounded"></i>
-                                     </button>
-                                     <div class="dropdown-menu">
-                                         <a class="dropdown-item" href="{{ route('guru.edit', $guru->id) }}">
-                                             <i class="bx bx-edit-alt me-1"></i> Edit
-                                         </a>
-                                         <!-- Route hapus guru -->
-                                         <form action="{{ route('guru.destroy', $guru->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data guru ini?');" style="display:inline;">
-                                             @csrf
-                                             @method('DELETE')
-                                             <button type="submit" class="dropdown-item text-danger">
-                                                 <i class="bx bx-trash me-1"></i> Hapus
-                                             </button>
-                                         </form>
-                                     </div>
-                               </div>
-                            </td>
-                          </tr>
-                        @empty
-                        <tr>
-                            <td colspan="6" class="text-center text-muted py-4">Belum ada data guru tersedia.</td>
-                        </tr>   
-                        @endforelse
-                    </tbody>
+        @forelse ($gurus as $index => $guru)
+         <tr>
+            <td>{{ $index + 1 }}</td>
+            <td>
+                @if($guru->foto)
+                    <!-- Menampilkan foto dari storage atau folder publik sesuai konfigurasi upload-mu -->
+                    <img src="{{ asset('guru/' . $guru->foto) }}" alt="Foto Guru" width="40" height="40" class="rounded-circle object-fit-cover" onerror="this.onerror=null;this.src='{{ asset('storage/' . $guru->foto) }}';">
+                @else
+                    <span class="badge bg-label-secondary">Tidak ada foto</span>
+                @endif
+            </td>
+            <td>{{ $guru->nip }}</td>
+            <td>{{ $guru->nama_guru }}</td>
+            <!-- Menampilkan Nama Mata Pelajaran dari Relasi Database -->
+            <td>
+                <span class="badge bg-label-primary">{{ $guru->mapel->nama_mapel ?? '-' }}</span>
+            </td>
+            <td class="text-center">
+               <div class="dropdown">
+                   <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                       <i class="bx bx-dots-vertical-rounded"></i>
+                   </button>
+                   <div class="dropdown-menu">
+                       <a class="dropdown-item" href="{{ route('guru.edit', $guru->id) }}">
+                           <i class="bx bx-edit-alt me-1"></i> Edit
+                       </a>
+                       <form action="{{ route('guru.destroy', $guru->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data guru ini?');" style="display:inline;">
+                           @csrf
+                           @method('DELETE')
+                           <button type="submit" class="dropdown-item text-danger">
+                               <i class="bx bx-trash me-1"></i> Hapus
+                           </button>
+                       </form>
+                   </div>
+               </div>
+            </td>
+          </tr>
+        @empty
+        <tr>
+            <td colspan="6" class="text-center text-muted py-4">Belum ada data guru tersedia.</td>
+        </tr>   
+        @endforelse
+    </tbody>
                 </table>
             </div>
         </div>
