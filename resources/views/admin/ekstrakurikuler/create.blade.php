@@ -11,7 +11,7 @@
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Form Tambah Ekstrakurikuler</h5>
-                    <a href="{{ route('ekstrakulikuler.index') }}" class="btn btn-secondary btn-sm">
+                    <a href="{{ route('ekstrakurikuler.index') }}" class="btn btn-secondary btn-sm">
                         <i class="bx bx-arrow-back me-1"></i> Kembali
                     </a>
                 </div>

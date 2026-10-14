@@ -481,20 +481,20 @@
     }
 }
 
-.home-page .kepsek-layout {
-    display: flex;
-    align-items: center;
-    gap: 35px;
-}
+    .home-page .kepsek-layout {
+        display: flex;
+        align-items: center;
+        gap: 35px;
+    }
 
-.home-page .section-heading {
-    font-size: 36px;
-}
+    .home-page .section-heading {
+        font-size: 36px;
+    }
 
-.home-page .kepsek-copy {
-    font-size: 16px;
-    line-height: 1.8;
-}
+    .home-page .kepsek-copy {
+        font-size: 16px;
+        line-height: 1.8;
+    }
 
 @media (max-width: 767px) {
     .home-page .kepsek-layout {
@@ -536,7 +536,7 @@
         </div>
     </div>
 
-    <div class="container stats-card-container">
+    <div class="container stats-card-container"> 
         <div class="stats-box text-white w-100">
             <div class="row text-center align-items-center g-0">
                 <div class="col-3 stat-item py-1">
@@ -762,7 +762,7 @@
                             <div class="card-body bg-white d-flex flex-column justify-content-between">
                                 <div>
                                     <h5 class="fw-bold mb-2 text-dark">
-                                        {{ strtoupper($eskul->nama_ekstrakulikuler ?? $eskul->nama ?? 'FUTSAL') }}
+                                        {{ strtoupper($eskul->nama_ekstrakulikuler) }}
                                     </h5>
 
                                     <p class="text-muted small mb-3 line-clamp-2" style="font-size:12px;line-height:1.6;">

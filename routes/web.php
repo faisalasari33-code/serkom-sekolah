@@ -85,13 +85,13 @@ Route::middleware('checkauth')->group(function() {
     Route::put('/galeri/update/{id}', [GaleriController::class, 'update'])->name('galeri.update');
     Route::delete('/galeri/hapus/{id}', [GaleriController::class, 'destroy'])->name('galeri.destroy');
 
-    // CRUD Ekstrakurikuler Admin
-    Route::get('/ekstrakulikuler', [EkstrakurikulerController::class, 'index'])->name('ekstrakulikuler.index');
-    Route::get('/ekstrakulikuler/create', [EkstrakurikulerController::class, 'create'])->name('ekstrakulikuler.create');
-    Route::post('/ekstrakulikuler', [EkstrakurikulerController::class, 'store'])->name('ekstrakulikuler.store');
-    Route::get('/ekstrakulikuler/{id}/edit', [EkstrakurikulerController::class, 'edit'])->name('ekstrakulikuler.edit');
-    Route::put('/ekstrakulikuler/{id}', [EkstrakurikulerController::class, 'update'])->name('ekstrakulikuler.update');
-    Route::delete('/ekstrakulikuler/{id}', [EkstrakurikulerController::class, 'destroy'])->name('ekstrakulikuler.destroy');
+// CRUD Ekstrakurikuler Admin (Disamakan menggunakan 'urikuler')
+Route::get('admin/ekstrakurikuler', [EkstrakurikulerController::class, 'index'])->name('ekstrakurikuler.index');
+Route::get('admin/ekstrakurikuler/create', [EkstrakurikulerController::class, 'create'])->name('ekstrakurikuler.create');
+Route::post('admin/ekstrakurikuler', [EkstrakurikulerController::class, 'store'])->name('ekstrakurikuler.store');
+Route::get('admin/ekstrakurikuler/{id}/edit', [EkstrakurikulerController::class, 'edit'])->name('ekstrakurikuler.edit');
+Route::put('admin/ekstrakurikuler/{id}', [EkstrakurikulerController::class, 'update'])->name('ekstrakurikuler.update');
+Route::delete('admin/ekstrakurikuler/{id}', [EkstrakurikulerController::class, 'destroy'])->name('ekstrakurikuler.destroy');
 
     // Profil Sekolah Admin
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');

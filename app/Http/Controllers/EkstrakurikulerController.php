@@ -46,7 +46,7 @@ class EkstrakurikulerController extends Controller
 
         Ekstrakurikuler::create($data);
 
-        return redirect()->route('ekstrakulikuler.index')->with('success', 'Data ekstrakurikuler berhasil ditambahkan!');
+        return redirect()->route('ekstrakurikuler.index')->with('success', 'Data ekstrakurikuler berhasil ditambahkan!');
     }
 
     public function edit($id)
@@ -94,7 +94,7 @@ class EkstrakurikulerController extends Controller
 
         $ekskul->delete();
 
-        return redirect()->route('ekstrakulikuler.index')->with('success', 'Data ekstrakurikuler berhasil dihapus!');
+        return redirect()->route('ekstrakurikuler.index')->with('success', 'Data ekstrakurikuler berhasil dihapus!');
     }
 
 }

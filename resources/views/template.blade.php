@@ -106,7 +106,7 @@
                         </a>
                     </li>
                     <li class="menu-item">
-                        <a href="{{route('ekstrakulikuler.index')}}" class="menu-link">
+                        <a href="{{route('ekstrakurikuler.index')}}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-trophy"></i>
                             <div data-i18n="Layouts">Ekstrakulikuler</div>
                         </a>
